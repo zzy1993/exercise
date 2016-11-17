@@ -4,7 +4,7 @@
 var express = require('express');
 
 module.exports = function (app) {
-p
+
     // import controller modules
     // var images = require('./controllers/imageController.js');
     var pages = require('./controllers/pageController.js');
