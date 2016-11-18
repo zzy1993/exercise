@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+<head>
+    <meta charset="UTF-8">
+    <title>Map Image</title>
+    <script src="/lib/angular.js"></script>
+    <script src="/app/static/js/imagesApp.js"></script>
+</head>
+<body>
+<h1>Map Image</h1>
+<div ng-controller="imageController">
+    <div class="listImage" ng-click="setImage(image._id)" ng-src="/images/{{image.filename}}"></div>
+</div>
+</body>
+</html>
