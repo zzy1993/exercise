@@ -11,10 +11,10 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
-var ImageSchema = Schema({
+var ImageSchema = new Schema({
+    timestamp: {type: Date, default: Date.now},
     title: String,
     filename: String,
-    timestamp: { type: Date, default: Date.now},
     commentId: Schema.ObjectId
 });
 

@@ -6,18 +6,19 @@ var express = require('express');
 // implement data module
 var mongoose = require('mongoose');
 var db = mongoose.connect('mongodb://localhost/exercise');
-require('./models/commentsModel.js');
+// require('./models/commentModel.js');
 require('./models/imageModel.js');
-require('./models/pageModel.js');
+// require('./models/pageModel.js');
 
-// implement 
+// set view engine and templates
 var app = express();
-// use file extension as 'html'
-app.engine('html', require('ejs').__express);
-// specify path for template engine tracing the view template
-app.set('views', __dirname + '/views');
+// expect view engine for 'html' template
 app.set('view engine', 'html');
+// expand ejsForExpress on 'html' template
+app.engine('.html', require('ejs').__express);
+// path of templates
+app.set('views', __dirname + '/views');
 
 // implement routes in express server
 require('./routes.js')(app);
-app.listen(80);
+app.listen(3000);
