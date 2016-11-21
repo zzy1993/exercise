@@ -2,14 +2,17 @@
 <html lang="en" ng-app="myApp">
 <head>
     <meta charset="UTF-8">
-    <title>Map Image</title>
-    <script src="/lib/angular.js"></script>
-    <script src="/app/static/js/imagesApp.js"></script>
+    <link rel="stylesheet" href="lib/css/bootstrap.css">
 </head>
 <body>
 <h1>Map Image</h1>
-<div ng-controller="imageController">
-    <div class="listImage" ng-click="setImage(image._id)" ng-src="/images/{{image.filename}}"></div>
+<div class="container-fluid" ng-controller="imageController">
+    <p>{{image.title}}</p>
+    <div ng-repeat="image in images">
+        <img ng-click="setImage(image._id)" ng-src="/images/{{image.filename}}"/>
+    </div>
 </div>
+<script src="lib/js/angular.min.js"></script>
+<script src="static/js/imagesApp.js"></script>
 </body>
 </html>
