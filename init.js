@@ -3,10 +3,10 @@
  */
 
 var mongoose = require('mongoose');
-var db = mongoose.connect('mongodb://localhost/exercise');
+mongoose.connect('mongodb://localhost/exercise');
 
-require('./models/imageModel.js');
-var image = mongoose.model('Image');
+require('./app/models/imageModel.js');
+var Image = mongoose.model('Image');
 
 function addImage(title, filename) {
     var image = new Image({title: title, filename: filename});
@@ -15,7 +15,7 @@ function addImage(title, filename) {
     });
 }
 
-image.remove().exec(function () {
+Image.remove().exec(function () {
     addImage('Boston_1728_Burgis','Boston_1728_Burgis.jpg');
     addImage('Boston_1769_Price_LC','Boston_1769_Price_LC.jpg');
     addImage('Boston_1775_deCosta','Boston_1775_deCosta.jpg');
@@ -29,4 +29,4 @@ image.remove().exec(function () {
     addImage('Boston_1852_Shields','Boston_1852_Shields.jpg');
     addImage('Boston_1874_Hopkins','Boston_1874_Hopkins.jpg');
     addImage('Boston_1875_Beers','Boston_1875_Beers.jpg');
-})
+});

@@ -3,10 +3,11 @@
  */
 
 var mongoose = require('mongoose');
-var image = mongoose.model('Image');
+var Image = mongoose.model('Image');
 
+// /images?imageId=5830f1e57467e640eb4da00f
 exports.getImage = function (req, res) {
-    image.findOne({ _id: req.query.imageId})
+    Image.findOne({ _id: req.query.imageId, })
         .exec(function (err, image) {
             if (!image){
                 res.status(404)
@@ -18,8 +19,9 @@ exports.getImage = function (req, res) {
         });
 };
 
+// /images
 exports.getImages = function (req, res) {
-    image.find()
+    Image.find()
         .exec(function (err, images) {
             if (!images){
                 res.status(404)
