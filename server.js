@@ -8,7 +8,7 @@ var mongoose = require('mongoose');
 var db = mongoose.connect('mongodb://localhost/exercise');
 // require('./models/commentModel.js');
 require('./app/models/imageModel.js');
-// require('./models/pageModel.js');
+require('./app/models/pageModel.js');
 
 // set view engine and templates
 var app = express();
