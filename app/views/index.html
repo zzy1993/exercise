@@ -6,11 +6,12 @@
 </head>
 <body>
 <h1>Map Image</h1>
-<div class="container-fluid" ng-controller="imageController">
-    <p>{{image.title}}</p>
+<div ng-controller="imageController">
     <div ng-repeat="image in images">
-        <img ng-click="setImage(image._id)" ng-src="/images/{{image.filename}}"/>
+        <p ng-click="setImage(image._id)">{{image.title}}</p>
     </div>
+    <h2>{{image.title}}</h2>
+    <img src="imgs/{{image.filename}}"/>
 </div>
 <script src="lib/js/angular.min.js"></script>
 <script src="static/js/imagesApp.js"></script>

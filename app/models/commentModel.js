@@ -20,7 +20,7 @@ var Schema = mongoose.Schema;
 var ReplySchema = new Schema({
     timestamp: { type: Date, default: Date.now},
     username: String,
-    subject: String,
+    title: String,
     body: String,
     replies: [ReplySchema]
 }, {
