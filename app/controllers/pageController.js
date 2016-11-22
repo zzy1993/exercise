@@ -5,7 +5,7 @@
 var mongoose = require('mongoose');
 var Page = mongoose.model('Page');
 
-// /page?pageName=
+// /page?pageName
 exports.getPage = function (req, res) {
     Page.findOne({name: req.query.pageName})
     .exec(function(err, page){

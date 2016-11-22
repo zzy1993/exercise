@@ -6,7 +6,7 @@
 var mongoose = require('mongoose');
 var Image = mongoose.model('Image');
 
-// /image?imageId=5830f1e57467e640eb4da00f
+// /image?imageId
 exports.getImage = function (req, res) {
     Image.findOne({ _id: req.query.imageId})
         .exec(function (err, image) {
