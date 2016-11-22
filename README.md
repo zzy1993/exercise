@@ -17,13 +17,10 @@ Actually, using express in code generation is quite comfortable, but I did not.
 This project is a mean stack implementation. 
 This project follows MVC and REST design requirements.
 
-Following targets are listed as follows:
+Targets are listed as follows:
 
-### Target 1
-Provide basic image service.
+* Provide basic image service.
 
-### Target 2
-Add comment and reply service.
+* Add comment and reply service.
 
-### Target 3
-Add user registry and login service.
+* Add user registry and login service.
