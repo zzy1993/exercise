@@ -14,17 +14,24 @@ var Comment = mongoose.model('Comment');
 
 function addImage(title, filename) {
     var image = new Image({title: title, filename: filename});
-    var comment = new Comment({title: title + " Comments"});
     image.save(function () {
-        console.log(title + " is saved.");
+        var comment = new Comment({title: title + " Comments"});
+        image.commentId = comment._id;
+        image.save(function () {
+            console.log(title + " is saved.");
+        });
     });
 }
 
 Comment.remove().exec(function () {
     Page.remove().exec(function () {
         Image.remove().exec(function () {
-            var comment = new Comment({});
-            comment.save(function)
+            var comment = new Comment({title: title});
+            comment.save(function (err, comment) {
+                var page = new Page({name: 'Images Page'});
+                page.commentId = comment.id;
+                page.save();
+            });
             addImage('Boston_1728_Burgis', 'Boston_1728_Burgis.jpg');
             addImage('Boston_1769_Price_LC', 'Boston_1769_Price_LC.jpg');
             addImage('Boston_1775_deCosta', 'Boston_1775_deCosta.jpg');
@@ -40,8 +47,4 @@ Comment.remove().exec(function () {
             addImage('Boston_1875_Beers', 'Boston_1875_Beers.jpg');
         });
     });
-});
-
-Page.remove().exec(function () {
-    addPage('')
 });
