@@ -1,11 +1,13 @@
 /**
- *
+ * /page
  */
 
 var mongoose = require('mongoose');
-var page = mongoose.model('Page');
+var Page = mongoose.model('Page');
+
+// /page?pageName=
 exports.getPage = function (req, res) {
-    page.findOne({name: req.query.pageName})
+    Page.findOne({name: req.query.pageName})
     .exec(function(err, page){
         if (!page){
             res.json(404, {msg: 'Page Not Found'});
