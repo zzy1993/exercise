@@ -4,35 +4,81 @@
 
 var app = angular.module('myApp', []);
 
-app.controller('imageController', ['$scope', '$http', function($scope, $http){
+function CommentObj($http) {
+    this.getComment = function(commentId, callback) {
+        console.log('getComment: ', commentId);
+        $http.get('/comment/get',
+            {params: {commentId: commentId}})
+            .then(function successCallback(res) {
+                console.log('getComment done: ', res.data);
+                callback(null, res);
+            }, function errorCallback(res) {
+                callback(res, {});
+            });
+    };
+
+    // BUG: post
+    this.addComment = function(commentIdRoot, commentIdParent, commentNew, callback){
+        console.log('addComment: ', commentIdRoot, commentIdParent, commentNew);
+        $http.post('/comment/post',
+            {commentIdRoot: commentIdRoot,
+                commentIdParent: commentIdParent,
+                commentNew: commentNew},
+            {headers: {'Content-Type': 'application/json'}})
+            .then(function successCallback(res) {
+                console.log('addComment done: ', res.data);
+                callback(null, res);
+            }, function errorCallback(res) {
+                callback(res, {});
+            });
+    };
+}
+app.service('commentService', ['$http', CommentObj]);
+
+app.controller('imageController', ['$scope', '$http', 'commentService', function($scope, $http, commentService){
+
+    // preset of imageController
+    // /images
+    $http.get('/images')
+        .then(function successCallback(res) {
+            $scope.images = res.data;
+            $scope.image = res.data[0];
+            $scope.getComments();
+            console.log('get done:', $scope.comment);
+        }, function errorCallback(res) {
+            $scope.images = [];
+        });
+
     // /image?imageId=5830f1e57467e640eb4da00f
     $scope.setImage = function(imageId){
         // use 'params' here
-        $http.get('/image', {params: {imageId: imageId}})
+        $http.get('/image',
+            {params: {imageId: imageId}})
             .then(function successCallback(res) {
                 $scope.image = res.data;
             }, function errorCallback(res) {
                 $scope.image = {};
             });
     };
-    // /images
-    $http.get('/images')
-        .then(function successCallback(res) {
-            $scope.images = res.data;
-            $scope.image = $scope.images[0];
-        }, function errorCallback(res) {
-            $scope.images = [];
-        });
-}]);
 
-app.controller('pageController', ['$scope', '$http', function ($scope, $http) {
-    // /page
-    $scope.setPage = function (pageName) {
-        $http.get('/page', {param: {pageName: pageName}})
-            .then(function successCallback(res) {
-                $scope.page = res.data;
-            }, function errorCallback(res) {
-                $scope.page = {};
-            });
+    // BUG: res.data
+    $scope.getComments = function () {
+        console.log('getComments: ', $scope.image.commentId);
+        commentService.getComment($scope.image.commentId, function (err, res) {
+            if(err){
+                $scope.comment = {};
+            }else{
+                $scope.comment = res.data;
+                console.log('getComments done: ', res.data);
+            }
+        });
+    };
+
+    $scope.addReply = function(commentIdParent, subject, body){
+        console.log('addReply:', commentIdParent);
+        var commentNew = {subject: subject, body: body};
+        commentService.addComment($scope.comment._id, commentIdParent, commentNew, function (err, res){
+            $scope.getComments();
+        });
     };
 }]);
