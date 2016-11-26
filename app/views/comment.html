@@ -1,11 +1,16 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-</head>
-<body>
-
+<span>{{comment.title}}</span>
+<input type="button" value="Add Comment" ng-show="addComment==false" ng-click="addComment=true">
+<form ng-show="addComment==true">
+    <label>Subject</label>
+    <input type="text" ng-model="replySubject">
+    <label>Comment</label>
+    <textarea ng-model="replyBody"></textarea>
+    <p>{{comment}}</p>
+    <input type="button" value="Send" ng-click="addComment=false;addReply(comment._id, replySubject, replyBody)">
+</form>
+<input type="button" value="Cancel" ng-show="addComment==true" ng-click="addComment=false">
+<div ng-repeat="comment in comment.replies" ng-init="reply==false;replySubject='';replyBody=''">
+    <div ng-include="'replies.html'"></div>
+</div>
 <script src="lib/js/angular.min.js"></script>
 <script src="static/js/imagesApp.js"></script>
-</body>
-</html>
