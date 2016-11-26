@@ -1,14 +1,16 @@
 /**
- *
+ * 
  */
 var express = require('express');
+var bodyParser = require('body-parser');
 
 // implement data module
 var mongoose = require('mongoose');
+
 var db = mongoose.connect('mongodb://localhost/exercise');
-// require('./models/commentModel.js');
+
 require('./app/models/imageModel.js');
-require('./app/models/pageModel.js');
+require('./app/models/commentModel.js');
 
 // set view engine and templates
 var app = express();
@@ -18,6 +20,10 @@ app.set('view engine', 'html');
 app.engine('.html', require('ejs').__express);
 // path of templates
 app.set('views', __dirname + '/app/views');
+
+// BUG: bodyParser
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 
 // implement routes in express server
 require('./routes.js')(app);
