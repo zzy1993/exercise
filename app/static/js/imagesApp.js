@@ -24,7 +24,7 @@ function CommentObj($http) {
             {commentIdRoot: commentIdRoot,
                 commentIdParent: commentIdParent,
                 commentNew: commentNew},
-            {headers: {'Content-Type': 'application/json'}})
+            {headers: {"Content-Type": "application/json"}})
             .then(function successCallback(res) {
                 console.log('addComment done: ', res.data);
                 callback(null, res);
@@ -56,6 +56,7 @@ app.controller('imageController', ['$scope', '$http', 'commentService', function
             {params: {imageId: imageId}})
             .then(function successCallback(res) {
                 $scope.image = res.data;
+                $scope.getComments();
             }, function errorCallback(res) {
                 $scope.image = {};
             });
