@@ -19,7 +19,7 @@ This project follows MVC and REST design requirements.
 
 Targets are listed as follows:
 
-* Provide basic image service.
+* Provide basic image service. (11/21 achieved)
 
 * Add comment and reply service.
 
