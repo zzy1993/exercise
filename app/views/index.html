@@ -3,18 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="lib/css/bootstrap.css">
+    <link rel="stylesheet" href="static/css/style.css">
 </head>
 <body>
-<h1>Map Image</h1>
+<h1>Gallery</h1>
 <div ng-controller="imageController">
-    <div ng-repeat="image in images">
-        <p ng-click="setImage(image._id)">{{image.title}}</p>
+    <div id="photosContainer">
+        <div class="photoItem" ng-repeat="image in images">
+            <img class="listPhoto" ng-click="setImage(image._id);" ng-src="imgs/{{image.filename}}"/>
+        </div>
     </div>
-    <p>{{image.title}}</p>
-    <!--BUG: ng-src-->
-    <img ng-src="imgs/{{image.filename}}" style="width: 500px"/>
-    <div ng-init="addComment=false;replySubject='';replyBody=''">
-        <div ng-include="'comment.html'"></div>
+    <div>
+        <div id="photoContainer">
+            <p class="imageTitle">{{image.title}}</p>
+            <img class="mainPhoto" ng-src="imgs/{{image.filename}}" style="width: 500px"/>
+        </div>
+        <!--BUG: ng-src-->
+        <div id="photoComments" ng-init="isAddComment=false;replySubject='';replyBody=''">
+            <div class="comment" ng-include="'comment.html'"></div>
+        </div>
     </div>
 </div>
 <script src="lib/js/angular.min.js"></script>

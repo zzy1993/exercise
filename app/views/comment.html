@@ -1,16 +1,15 @@
-<span>{{comment.title}}</span>
-<input type="button" value="Add Comment" ng-show="addComment==false" ng-click="addComment=true">
-<form ng-show="addComment==true">
+<div class="commentTitle">{{comment.title}}</div>
+<input type="button" value="Add Comment" ng-show="isAddComment==false" ng-click="isAddComment=true">
+<form ng-show="isAddComment==true">
     <label>Subject</label>
     <input type="text" ng-model="replySubject">
     <label>Comment</label>
     <textarea ng-model="replyBody"></textarea>
-    <p>{{comment}}</p>
-    <input type="button" value="Send" ng-click="addComment=false;addReply(comment._id, replySubject, replyBody)">
+    <input type="button" value="Send" ng-click="isAddComment=false;addReply(comment._id, replySubject, replyBody)">
 </form>
-<input type="button" value="Cancel" ng-show="addComment==true" ng-click="addComment=false">
-<div ng-repeat="comment in comment.replies" ng-init="reply==false;replySubject='';replyBody=''">
-    <div ng-include="'replies.html'"></div>
+<input type="button" value="Cancel" ng-show="isAddComment==true" ng-click="isAddComment=false">
+<div ng-repeat="comment in comment.replies" ng-init="isReply=false;replySubject='';replyBody=''">
+    <div class="comment" ng-include="'replies.html'"></div>
 </div>
 <script src="lib/js/angular.min.js"></script>
 <script src="static/js/imagesApp.js"></script>
