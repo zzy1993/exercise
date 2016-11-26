@@ -10,8 +10,12 @@
     <div ng-repeat="image in images">
         <p ng-click="setImage(image._id)">{{image.title}}</p>
     </div>
-    <h2>{{image.title}}</h2>
-    <img src="imgs/{{image.filename}}"/>
+    <p>{{image.title}}</p>
+    <!--BUG: ng-src-->
+    <img ng-src="imgs/{{image.filename}}" style="width: 500px"/>
+    <div ng-init="addComment=false;replySubject='';replyBody=''">
+        <div ng-include="'comment.html'"></div>
+    </div>
 </div>
 <script src="lib/js/angular.min.js"></script>
 <script src="static/js/imagesApp.js"></script>
