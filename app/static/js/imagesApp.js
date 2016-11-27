@@ -6,11 +6,9 @@ var app = angular.module('myApp', []);
 
 function CommentObj($http) {
     this.getComment = function(commentId, callback) {
-        console.log('getComment: ', commentId);
-        $http.get('/comment/get',
+        $http.get('/comment',
             {params: {commentId: commentId}})
             .then(function successCallback(res) {
-                console.log('getComment done: ', res.data);
                 callback(null, res);
             }, function errorCallback(res) {
                 callback(res, {});
@@ -19,14 +17,12 @@ function CommentObj($http) {
 
     // BUG: post
     this.addComment = function(commentIdRoot, commentIdParent, commentNew, callback){
-        console.log('addComment: ', commentIdRoot, commentIdParent, commentNew);
-        $http.post('/comment/post',
+        $http.post('/comment',
             {commentIdRoot: commentIdRoot,
                 commentIdParent: commentIdParent,
                 commentNew: commentNew},
             {headers: {"Content-Type": "application/json"}})
             .then(function successCallback(res) {
-                console.log('addComment done: ', res.data);
                 callback(null, res);
             }, function errorCallback(res) {
                 callback(res, {});
@@ -44,7 +40,6 @@ app.controller('imageController', ['$scope', '$http', 'commentService', function
             $scope.images = res.data;
             $scope.image = res.data[0];
             $scope.getComments();
-            console.log('get done:', $scope.comment);
         }, function errorCallback(res) {
             $scope.images = [];
         });
@@ -64,19 +59,16 @@ app.controller('imageController', ['$scope', '$http', 'commentService', function
 
     // BUG: res.data
     $scope.getComments = function () {
-        console.log('getComments: ', $scope.image.commentId);
         commentService.getComment($scope.image.commentId, function (err, res) {
             if(err){
                 $scope.comment = {};
             }else{
                 $scope.comment = res.data;
-                console.log('getComments done: ', res.data);
             }
         });
     };
 
     $scope.addReply = function(commentIdParent, body){
-        console.log('addReply:', commentIdParent);
         var commentNew = {body: body};
         commentService.addComment($scope.comment._id, commentIdParent, commentNew, function (err, res){
             $scope.getComments();

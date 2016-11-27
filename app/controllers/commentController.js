@@ -8,8 +8,6 @@ var Reply = mongoose.model('Reply');
 
 // /comment?commentId
 exports.getComment = function(req, res) {
-    //console.log('getComment B');
-    //console.log('req.query: ', req);
     // key from GET query
     Comment.findOne({_id: req.query.commentId})
         // error and response in callback
@@ -24,18 +22,14 @@ exports.getComment = function(req, res) {
 
 // comment
 exports.addComment = function(req, res) {
-    console.log('addComment B');
-    console.log('req.body: ', req);
     // key form POST bodyfec
     Comment.findOne({_id: req.body.commentIdRoot})
         .exec(function(err, comment) {
             // a comment not exists
-            console.log(comment);
             if (!comment) {
                 res.json(404, {msg: 'Comment Not Found.'});
             // a comment exists
             }else{
-                console.log('addComment B comment done');
                 var commentNew = new Reply(req.body.commentNew);
                 commentNew.username = generateUsername();
                 addComment(req, res, comment, comment, req.body.commentIdParent, commentNew);
