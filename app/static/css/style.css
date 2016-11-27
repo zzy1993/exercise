@@ -6,7 +6,7 @@ div#photosContainer{
     text-align: left;
     overflow-x: scroll;
     overflow-y: auto;
-    height: 100px;
+    height: 120px;
     display: inline;
     padding: 2px;
     margin: 2px;
@@ -38,7 +38,7 @@ div.comment{
     border-radius: 5px;
 }
 img.listPhoto{
-    height: 100%;
+    height: 100px;
     cursor: pointer;
 }
 img.mainPhoto{
