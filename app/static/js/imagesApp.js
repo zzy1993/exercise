@@ -75,9 +75,9 @@ app.controller('imageController', ['$scope', '$http', 'commentService', function
         });
     };
 
-    $scope.addReply = function(commentIdParent, subject, body){
+    $scope.addReply = function(commentIdParent, body){
         console.log('addReply:', commentIdParent);
-        var commentNew = {subject: subject, body: body};
+        var commentNew = {body: body};
         commentService.addComment($scope.comment._id, commentIdParent, commentNew, function (err, res){
             $scope.getComments();
         });

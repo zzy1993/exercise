@@ -1,14 +1,12 @@
 <div class="commentTitle">{{comment.title}}</div>
 <input type="button" value="Add Comment" ng-show="isAddComment==false" ng-click="isAddComment=true">
 <form ng-show="isAddComment==true">
-    <label>Subject</label>
-    <input type="text" ng-model="replySubject">
     <label>Comment</label>
     <textarea ng-model="replyBody"></textarea>
-    <input type="button" value="Send" ng-click="isAddComment=false;addReply(comment._id, replySubject, replyBody)">
+    <input type="button" value="Send" ng-click="isAddComment=false;addReply(comment._id, replyBody)">
 </form>
 <input type="button" value="Cancel" ng-show="isAddComment==true" ng-click="isAddComment=false">
-<div ng-repeat="comment in comment.replies" ng-init="isReply=false;replySubject='';replyBody=''">
+<div ng-repeat="comment in comment.replies" ng-init="isReply=false;replyBody=''">
     <div class="comment" ng-include="'replies.html'"></div>
 </div>
 <script src="lib/js/angular.min.js"></script>

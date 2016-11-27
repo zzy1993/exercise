@@ -6,24 +6,23 @@
     <link rel="stylesheet" href="static/css/style.css">
 </head>
 <body>
-<h1>Gallery</h1>
-<div ng-controller="imageController">
+<div class="container" ng-controller="imageController">
+    <h1>Gallery</h1>
     <div id="photosContainer">
-        <div class="photoItem" ng-repeat="image in images">
+        <span class="photoItem" ng-repeat="image in images">
             <img class="listPhoto" ng-click="setImage(image._id);" ng-src="imgs/{{image.filename}}"/>
-        </div>
+        </span>
     </div>
-    <div>
-        <div id="photoContainer">
-            <p class="imageTitle">{{image.title}}</p>
-            <img class="mainPhoto" ng-src="imgs/{{image.filename}}" style="width: 500px"/>
-        </div>
-        <!--BUG: ng-src-->
-        <div id="photoComments" ng-init="isAddComment=false;replySubject='';replyBody=''">
-            <div class="comment" ng-include="'comment.html'"></div>
-        </div>
+    <div id="photoContainer">
+        <p class="imageTitle">{{image.title}}</p>
+        <img class="mainPhoto" ng-src="imgs/{{image.filename}}"/>
+    </div>
+    <!--BUG: ng-src-->
+    <div id="photoComments" ng-init="isAddComment=false;replyBody=''">
+        <div class="comment" ng-include="'comment.html'"></div>
     </div>
 </div>
+
 <script src="lib/js/angular.min.js"></script>
 <script src="static/js/imagesApp.js"></script>
 </body>
