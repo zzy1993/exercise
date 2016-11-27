@@ -17,8 +17,6 @@ var ImageSchema = new Schema({
     title: String,
     filename: String,
     commentId: Schema.ObjectId
-},{
-    _id: true
 });
 
 // add mongoose model

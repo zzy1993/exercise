@@ -7,18 +7,18 @@
 </head>
 <body>
 <div class="container" ng-controller="imageController">
-    <h1>Gallery</h1>
-    <div id="photosContainer">
+    <h1 class="page-header">Gallery</h1>
+    <div class="row" id="photosContainer">
         <span class="photoItem" ng-repeat="image in images">
             <img class="listPhoto" ng-click="setImage(image._id);" ng-src="imgs/{{image.filename}}"/>
         </span>
     </div>
-    <div id="photoContainer">
+    <div class="row" id="photoContainer">
         <p class="imageTitle">{{image.title}}</p>
         <img class="mainPhoto" ng-src="imgs/{{image.filename}}"/>
     </div>
     <!--BUG: ng-src-->
-    <div id="photoComments" ng-init="isAddComment=false;replyBody=''">
+    <div class="row" id="photoComments" ng-init="isAddComment=false;replyBody=''">
         <div class="comment" ng-include="'comment.html'"></div>
     </div>
 </div>

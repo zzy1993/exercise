@@ -67,7 +67,8 @@ function updateComment(req, res, comment) {
         })
 }
 
+// TODO: getUsername from connected google account
 function generateUsername(){
-    var users = ['Alex', 'Bob', 'Claire', 'Dick'];
+    var users = ['Alex', 'Bob', 'Claire', 'Dick', 'Emma', 'Frederic', 'George', 'Helen', 'Ian'];
     return users[Math.floor(Math.random() * users.length)];
 }
