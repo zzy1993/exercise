@@ -1,0 +1,81 @@
+div#photosContainer{
+    background: gainsboro;
+    color: white;
+    float: left;
+    position: relative;
+    text-align: left;
+    overflow-x: scroll;
+    overflow-y: auto;
+    height: 100px;
+    display: inline;
+    padding: 2px;
+    margin: 2px;
+}
+div#photoContainer{
+    background: white;
+    color: black;
+    width: 100%;
+    display: inline-block;
+    position: relative;
+    text-align: left;
+    padding: 2px;
+    margin: 2px;
+}
+div#photoComments{
+    background: white;
+    color: black;
+    width: 100%;
+    display: inline-block;
+    overflow-y: scroll;
+    position: relative;
+    text-align: left;
+    padding: 2px;
+    margin: 2px;
+}
+div.comment{
+    border: 2px ridge grey;
+    padding: 10px;
+    border-radius: 5px;
+}
+img.listPhoto{
+    height: 100%;
+    cursor: pointer;
+}
+img.mainPhoto{
+    width: 100%;
+}
+.commentBody{
+    background-color: whitesmoke;
+    border-radius: 5px;
+    padding: 5px;
+    margin: 0;
+}
+.imageTitle{
+    font-size: 28px;
+    font-weight: bold;
+    margin: 0;
+}
+.commentTitle{
+    font-size: 18px;
+    font-weight: bold;
+}
+.username{
+    font-style: italic;
+}
+.timestamp{
+    font-style: italic;
+    font-size: 12px;
+    margin:0;
+}
+input[type='text'],
+textarea{
+    border: 2px ridge darkslategray;
+    border-radius: 5px;
+    padding: 3px;
+    width: 95%;
+}
+input[type='button']{
+    background-color: darkslategray;
+    color: white;
+    border-radius: 5px;
+}
