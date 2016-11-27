@@ -21,6 +21,6 @@ Targets are listed as follows:
 
 * Provide basic image service. (11/21 achieved)
 
-* Add comment and reply service.
+* Add comment and reply service. (11/26 achieved)
 
 * Add user registry and login service.
