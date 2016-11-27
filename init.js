@@ -28,9 +28,11 @@ function addImage(title, filename) {
 
 Comment.remove().exec(function () {
     Image.remove().exec(function () {
-        addImage('Boston_1728_Burgis', 'Boston_1728_Burgis.jpg');
-        addImage('Boston_1769_Price_LC', 'Boston_1769_Price_LC.jpg');
-        addImage('Boston_1775_deCosta', 'Boston_1775_deCosta.jpg');
-        addImage('Boston_1775_Harbor_Wheeler', 'Boston_1775_Harbor_Wheeler.jpg');
+        addImage('Brook in NH', 'brook.jpg');
+        addImage('Mountain and water', 'mountain_and_water.jpg');
+        addImage('Fog and hidden road', 'fog.jpg');
+        addImage('Rail bridge near Conway', 'rail_bridge.jpg');
+        addImage('Path near Livermore', 'path_of_leaves.jpg');
+        addImage('Sugar hill', 'sugar_hill.jpg');
     });
 });
