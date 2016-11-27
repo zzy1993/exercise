@@ -1,12 +1,13 @@
 div#photosContainer{
     background: gainsboro;
     color: white;
+    max-width: 100%;
     float: left;
     position: relative;
-    text-align: left;
+    /*text-align: left;*/
+    white-space:nowrap;
     overflow-x: scroll;
-    overflow-y: auto;
-    height: 120px;
+    height: 110px;
     display: inline;
     padding: 2px;
     margin: 2px;
@@ -72,10 +73,11 @@ textarea{
     border: 2px ridge darkslategray;
     border-radius: 5px;
     padding: 3px;
-    width: 95%;
+    width: 97%;
 }
 input[type='button']{
     background-color: darkslategray;
     color: white;
     border-radius: 5px;
+    padding: 3px;
 }
