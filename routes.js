@@ -24,8 +24,8 @@ module.exports = function (app) {
     // define request route to methods in controllers
     app.get('/image', image.getImage);
     app.get('/images', image.getImages);
-    app.get('/comment/get', comment.getComment);
-    app.post('/comment/post', comment.addComment);
+    app.get('/comment', comment.getComment);
+    app.post('/comment', comment.addComment);
     app.use('*', function (req, res) {
         res.send('Content Not Found.', 404);
     });
