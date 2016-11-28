@@ -2,8 +2,7 @@
 
 ## purpose
 
-One of my hobby is map collection. Map could be an art, a record of human civilization more than a tool.
-I hope to build a simple web app as a platform to share my favorite map images from either my collection or online resource.
+I am now building a simple web app to share my favourite images.
 This platform will also support comments from me or others on these map images.
 
 ## requirements
@@ -23,4 +22,4 @@ Targets are listed as follows:
 
 * Add comment and reply service. (11/26 achieved)
 
-* Add user registry and login service.
+* Add user registry and login service, bind account with Google.
