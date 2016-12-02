@@ -7,7 +7,7 @@ var mongoose = require('mongoose');
 // expressSession: session storage
 var expressSession = require('express-session');
 // connectMongo: persistent connection
-var connectMongo = require('connect-mongo')({session: expressSession});
+var mongoStore = require('connect-mongo')({session: expressSession});
 // bodyParser: parse the body
 var bodyParser = require('body-parser');
 
@@ -37,6 +37,16 @@ app.set('views', __dirname + '/app/views');
 // BUG: bodyParser
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+// select, cookie, store
+app.use(expressSession({
+    secret: 'SECRET',
+    cookie: {maxAge: 60 * 60 * 1000},
+    store: new mongoStore({
+        // BUG: 
+        mongooseConnection: db.connection,
+        collection: 'sessions'
+    })
+}));
 
 // implement routes in express server
 require('./routes.js')(app);
