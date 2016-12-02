@@ -1,12 +1,16 @@
 /**
  * loginUser, POST: username, password
- *      session: userId, username
+ *      add session: userId, username
+ *
+ * logoutUser, GET:
+ *      delete session
+ *      redirect /
  *
  * getUser, GET: username, password
- *      
+ *      return User
  *
  * addUser, POST: username, password, email
- *      User: username, passwordHashed, email
+ *      add User: username, passwordHashed, email
  */
 
 var mongoose = require('mongoose');
@@ -17,24 +21,47 @@ exports.loginUser = function (req, res) {
     User.findOne({username: req.body.username})
         .exec(function (err, user) {
             if(!user){
-                res.json(404, {msg: 'User Not Found.'})
+                res.json(404, {msg: 'User Not Found.'});
+                res.redirect('/');
             }else if (user.passwordHashed == hashPassword(req.params.password)){
                 req.session.regenerate(function () {
                     req.session.userId = user._id;
                     req.session.username = user.username;
                 })
+            }else{
+                res.redirect('/login');
+            }
+        });
+};
+
+exports.logoutUser = function (req, res) {
+    User.findOne({username: req.session.userId})
+        .exec(function (err, user) {
+            if(!user){
+                res.json(404, {msg: 'User Not Found.'});
+                res.redirect('/');
+            }else{
+                req.session.destroy(function () {
+                    res.redirect('/');
+                });
             }
         });
 };
 
 exports.getUser = function (req, res) {
-
+    User.findOne({_id: req.body.userId})
+        .exec(function (err, user) {
+            if(!user){
+                res.json(404, {msg: 'User Not Found.'});
+            }else{
+                res.json(user);
+            }
+        });
 };
 
 exports.addUser = function (req, res) {
-    var user = new User({username: req.body.username});
+    var user = new User({username: req.body.username, email: req.body.email});
     user.set('passwordHashed', hashPassword(req.body.password));
-    user.set('email', req.body.email);
     user.save(function (err) {
         if (err){
             res.session.error = err;
@@ -45,6 +72,7 @@ exports.addUser = function (req, res) {
     });
 };
 
+// BUG: .toString()
 function hashPassword(req, res, password){
     return crypto.createHash('sha256')
         .update(pwd)
