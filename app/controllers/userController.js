@@ -64,7 +64,7 @@ exports.addUser = function (req, res) {
     user.set('passwordHashed', hashPassword(req.body.password));
     user.save(function (err) {
         if (err){
-            res.session.error = err;
+            req.session.error = err;
         }else{
             req.session.msg = user.username + ' is created successfully.';
         }
@@ -73,9 +73,9 @@ exports.addUser = function (req, res) {
 };
 
 // BUG: .toString()
-function hashPassword(req, res, password){
+function hashPassword(password){
     return crypto.createHash('sha256')
-        .update(pwd)
+        .update(password.toString())
         .digest('base64')
         .toString();
 }
