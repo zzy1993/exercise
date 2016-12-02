@@ -1,5 +1,5 @@
 /**
- *
+ * 
  */
 
 var mongoose = require('mongoose');
@@ -7,9 +7,11 @@ mongoose.connect('mongodb://localhost/exercise');
 
 require('./app/models/imageModel.js');
 require('./app/models/commentModel.js');
+require('./app/models/userModel.js');
 
 var Image = mongoose.model('Image');
 var Comment = mongoose.model('Comment');
+var User = mongoose.model('User');
 
 function addImage(title, filename) {
     // BUG: sequence of save
@@ -26,13 +28,15 @@ function addImage(title, filename) {
     });
 }
 
-Comment.remove().exec(function () {
-    Image.remove().exec(function () {
-        addImage('Brook in NH', 'brook.jpg');
-        addImage('Mountain and water', 'mountain_and_water.jpg');
-        addImage('Fog and hidden road', 'fog.jpg');
-        addImage('Rail bridge near Conway', 'rail_bridge.jpg');
-        addImage('Path near Livermore', 'path_of_leaves.jpg');
-        addImage('Sugar hill', 'sugar_hill.jpg');
+User.remove().exec(function () {
+    Comment.remove().exec(function () {
+        Image.remove().exec(function () {
+            addImage('Brook in NH', 'brook.jpg');
+            addImage('Mountain and water', 'mountain_and_water.jpg');
+            addImage('Fog and hidden road', 'fog.jpg');
+            addImage('Rail bridge near Conway', 'rail_bridge.jpg');
+            addImage('Path near Livermore', 'path_of_leaves.jpg');
+            addImage('Sugar hill', 'sugar_hill.jpg');
+        });
     });
 });
