@@ -2,15 +2,28 @@
  * 
  */
 var express = require('express');
-var bodyParser = require('body-parser');
-
 // implement data module
 var mongoose = require('mongoose');
+// expressSession: session storage
+var expressSession = require('express-session');
+// connectMongo: persistent connection
+var connectMongo = require('connect-mongo')({session: expressSession});
+// bodyParser: parse the body
+var bodyParser = require('body-parser');
 
+// BUG: should not use .connect()
 var db = mongoose.connect('mongodb://localhost/exercise');
+
+// db.on('error', function (err) {
+//     log.error('Connection error:', err.message);
+// });
+// db.once('open', function callback () {
+//     log.info("Connected to DB");
+// });
 
 require('./app/models/imageModel.js');
 require('./app/models/commentModel.js');
+require('./app/models/userModel.js');
 
 // set view engine and templates
 var app = express();
