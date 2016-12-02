@@ -14,7 +14,7 @@ var Comment = mongoose.model('Comment');
 function addImage(title, filename) {
     // BUG: sequence of save
     var comment = new Comment({title: title});
-    comment.save(function (err, image) {
+    comment.save(function (err, comment) {
         var image = new Image({title: title, filename: filename});
         image.commentId = comment._id;
         // BUG: images.save()

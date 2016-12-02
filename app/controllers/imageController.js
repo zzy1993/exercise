@@ -1,6 +1,9 @@
 /**
- * /image?imageId
- * /images
+ * getImage, GET: imageId
+ *      image
+ *
+ * getImages, GET
+ *      images
  */
 
 var mongoose = require('mongoose');
@@ -13,8 +16,7 @@ exports.getImage = function (req, res) {
             if (!image){
                 res.status(404)
                     .json({msg: 'Image Not Found.'});
-            }
-            else {
+            }else {
                 res.json(image);
             }
         });
@@ -32,4 +34,20 @@ exports.getImages = function (req, res) {
                 res.json(images);
             }
         });
+};
+
+exports.apiGetImages = function (req, res){
+    res.json({msg: 'Sorry, GET images still building now.'});
+};
+
+exports.apiPostImages = function (req, res){
+    res.json({msg: 'Sorry, POST images still building now.'});
+};
+
+exports.apiDeleteImages = function (req, res){
+    res.json({msg: 'Sorry, DELETE images still building now.'});
+};
+
+exports.apiUpdateImages = function (req, res){
+    res.json({msg: 'Sorry, PUT images still building now.'});
 };
