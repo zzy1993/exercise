@@ -1,5 +1,6 @@
 <div class="commentTitle">{{comment.title}}</div>
 <input type="button" value="Add Comment" ng-show="isAddComment==false" ng-click="isAddComment=true">
+<!--show:isAddComment-->
 <form ng-show="isAddComment==true">
     <label>Comment</label>
     <textarea ng-model="replyBody"></textarea>
