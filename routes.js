@@ -20,22 +20,44 @@ module.exports = function (app) {
 
     // define request route to methods in controllers
     app.get('/', function (req, res) {
-        res.render('index.html');
+        if (req.session.user){
+            res.render('image.html', {username: req.session.username});
+        }else{
+            res.redirect('/user/login');
+        }
     });
     app.get('/image', image.getImage);
     app.get('/images', image.getImages);
     app.get('/comment', comment.getComment);
     app.post('/comment', comment.addComment);
-    app.get('/user', user.getUser);
-    app.post('/user', user.addUser);
+    app.get('/user', function (req, res) {
+        if (req.session.user) {
+            res.render('user.html');
+        }else{
+            res.redirect('/user/login');
+        }
+    });
     app.get('/user/signup', function (req, res) {
-        res.render('signup.html');
+        if (req.session.user) {
+            res.redirect('/');
+        }else{
+            res.render('signup');
+        }
     });
     app.get('/user/login', function (req, res) {
-        res.render('login.html');
+        if (req.session.user) {
+            res.redirect('/');
+        }else{
+            res.render('login.html');
+        }
     });
+    app.get('/user/logout', function (req, res) {
+        req.session.destroy(function () {
+            res.redirect('/user/login');
+        })
+    });
+    app.post('/user', user.addUser);
     app.post('/user/login', user.loginUser);
-    app.get('user/logout', user.logoutUser);
 
     // RESTful api reservation
     // images
