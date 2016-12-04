@@ -1,5 +1,9 @@
 /**
- * 
+ * getComment, GET: commentId
+ *      return comment
+ *
+ * addComment, POST: commentIdRoot, commentIdParent, comment
+ *      return comment
  */
 
 var mongoose = require('mongoose');
@@ -25,10 +29,8 @@ exports.addComment = function(req, res) {
     // key form POST bodyfec
     Comment.findOne({_id: req.body.commentIdRoot})
         .exec(function(err, comment) {
-            // a comment not exists
             if (!comment) {
                 res.json(404, {msg: 'Comment Not Found.'});
-            // a comment exists
             }else{
                 var commentNew = new Reply(req.body.commentNew);
                 commentNew.username = generateUsername();
