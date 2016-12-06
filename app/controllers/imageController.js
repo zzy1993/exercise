@@ -11,7 +11,7 @@ var Image = mongoose.model('Image');
 
 // /image?imageId
 exports.getImage = function (req, res) {
-    Image.findOne({ _id: req.query.imageId})
+    Image.findOne({ _id: req.params.imageId})
         .exec(function (err, image) {
             if (!image){
                 res.status(404)
@@ -36,18 +36,6 @@ exports.getImages = function (req, res) {
         });
 };
 
-exports.apiGetImages = function (req, res){
-    res.json({msg: 'Sorry, GET images still building now.'});
-};
-
-exports.apiPostImages = function (req, res){
+exports.postImages = function (req, res){
     res.json({msg: 'Sorry, POST images still building now.'});
-};
-
-exports.apiDeleteImages = function (req, res){
-    res.json({msg: 'Sorry, DELETE images still building now.'});
-};
-
-exports.apiUpdateImages = function (req, res){
-    res.json({msg: 'Sorry, PUT images still building now.'});
 };

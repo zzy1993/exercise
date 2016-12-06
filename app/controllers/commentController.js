@@ -13,7 +13,7 @@ var Reply = mongoose.model('Reply');
 // /comment?commentId
 exports.getComment = function(req, res) {
     // key from GET query
-    Comment.findOne({_id: req.query.commentId})
+    Comment.findOne({_id: req.params.commentId})
         // error and response in callback
         .exec(function (err, comment) {
             if (!comment){
@@ -25,7 +25,7 @@ exports.getComment = function(req, res) {
 };
 
 // comment
-exports.addComment = function(req, res) {
+exports.postComment = function(req, res) {
     // key form POST bodyfec
     Comment.findOne({_id: req.body.commentIdRoot})
         .exec(function(err, comment) {

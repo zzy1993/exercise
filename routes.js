@@ -18,18 +18,14 @@ module.exports = function (app) {
     var comment = require('./app/controllers/commentController.js');
     var user = require('./app/controllers/userController.js');
 
-    // define request route to methods in controllers
+    // define route to pages
     app.get('/', function (req, res) {
         if (req.session.user){
-            res.render('image.html', {username: req.session.username});
+            res.render('image.html');
         }else{
             res.redirect('/user/login');
         }
     });
-    app.get('/image', image.getImage);
-    app.get('/images', image.getImages);
-    app.get('/comment', comment.getComment);
-    app.post('/comment', comment.addComment);
     app.get('/user', function (req, res) {
         if (req.session.user) {
             res.render('user.html');
@@ -37,42 +33,33 @@ module.exports = function (app) {
             res.redirect('/user/login');
         }
     });
-    app.get('/user/signup', function (req, res) {
+    app.get('/signup', function (req, res) {
         if (req.session.user) {
             res.redirect('/');
         }else{
-            res.render('signup');
+            res.render('signup.html');
         }
     });
-    app.get('/user/login', function (req, res) {
+    app.get('/login', function (req, res) {
         if (req.session.user) {
             res.redirect('/');
         }else{
             res.render('login.html');
         }
     });
-    app.get('/user/logout', function (req, res) {
-        req.session.destroy(function () {
-            res.redirect('/user/login');
-        })
-    });
-    app.post('/user', user.addUser);
-    app.post('/user/login', user.loginUser);
 
-    // RESTful api reservation
-    // images
-    app.get('/api/images', image.apiGetImages);
-    app.post('/api/images', image.apiPostImages);
-    app.delete('/api/images', image.apiDeleteImages);
-    app.put('/api/images', image.apiUpdateImages);
-    // // comments
-    // app.get('/api/comments', comment.apiGetImages);
-    // app.post('/api/comments', comment.apiPostImages);
-    // app.delete('/api/comments', comment.apiDeleteImages);
-    // app.put('/api/comments', comment.apiUpdateImages);
+    // RESTful api
+    app.get('/api/images/:imageId', image.getImage);
+    app.get('/api/images', image.getImages);
+    app.get('/api/comments/:commentId', comment.getComment);
+    app.post('/api/comments', comment.postComment);
+    app.get('/api/users/:userId', user.getUser);
+    app.post('/api/users', user.postUser);
+    app.post('/api/session', user.postSession);
+    app.delete('/api/session', user.deleteSession);
+
     // invalid request
     app.use('*', function (req, res) {
         res.send('Content Not Found.', 404);
     });
 };
-

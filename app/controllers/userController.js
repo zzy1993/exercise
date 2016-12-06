@@ -17,7 +17,7 @@ var mongoose = require('mongoose');
 var crypto = require('crypto');
 var User = mongoose.model('User');
 
-exports.loginUser = function (req, res) {
+exports.postSession = function (req, res) {
     User.findOne({username: req.body.username})
         .exec(function (err, user) {
             if(!user){
@@ -34,8 +34,14 @@ exports.loginUser = function (req, res) {
         });
 };
 
+exports.deleteSession = function(req, res) {
+    req.session.destroy(function () {
+        res.redirect('/login');
+    });
+};
+
 exports.getUser = function (req, res) {
-    User.findOne({_id: req.body.userId})
+    User.findOne({_id: req.params.userId})
         .exec(function (err, user) {
             if(!user){
                 res.json(404, {msg: 'User Not Found.'});
@@ -45,7 +51,7 @@ exports.getUser = function (req, res) {
         });
 };
 
-exports.addUser = function (req, res) {
+exports.postUser = function (req, res) {
     var user = new User({username: req.body.username, email: req.body.email});
     user.set('passwordHashed', hashPassword(req.body.password));
     user.save(function (err) {
