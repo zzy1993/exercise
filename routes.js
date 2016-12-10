@@ -20,28 +20,29 @@ module.exports = function (app) {
 
     // define route to pages
     app.get('/', function (req, res) {
-        if (req.session.user){
+        console.log(req.session);
+        if (req.session.userId){
             res.render('image.html');
         }else{
-            res.redirect('/user/login');
+            res.redirect('/login');
         }
     });
     app.get('/user', function (req, res) {
-        if (req.session.user) {
+        if (req.session.userId) {
             res.render('user.html');
         }else{
-            res.redirect('/user/login');
+            res.redirect('/login');
         }
     });
     app.get('/signup', function (req, res) {
-        if (req.session.user) {
+        if (req.session.userId) {
             res.redirect('/');
         }else{
             res.render('signup.html');
         }
     });
     app.get('/login', function (req, res) {
-        if (req.session.user) {
+        if (req.session.userId) {
             res.redirect('/');
         }else{
             res.render('login.html');
@@ -60,6 +61,6 @@ module.exports = function (app) {
 
     // invalid request
     app.use('*', function (req, res) {
-        res.send('Content Not Found.', 404);
+        res.status(404).send('Content Not Found.');
     });
 };

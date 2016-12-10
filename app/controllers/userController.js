@@ -23,11 +23,13 @@ exports.postSession = function (req, res) {
             if(!user){
                 res.json(404, {msg: 'User Not Found.'});
                 res.redirect('/');
-            }else if (user.passwordHashed == hashPassword(req.params.password)){
+            }else if (user.passwordHashed == hashPassword(req.body.password)){
+                // Bug:
                 req.session.regenerate(function () {
                     req.session.userId = user._id;
                     req.session.username = user.username;
-                })
+                    res.redirect('/');
+                });
             }else{
                 res.redirect('/login');
             }
@@ -45,15 +47,19 @@ exports.getUser = function (req, res) {
         .exec(function (err, user) {
             if(!user){
                 res.json(404, {msg: 'User Not Found.'});
-            }else{
+            }else if (req.session.userId == req.params.userId){
                 res.json(user);
+            }else{
+                res.redirect('/');
             }
         });
 };
 
 exports.postUser = function (req, res) {
+    console.log(req.body.password, hashPassword(req.body.password));
     var user = new User({username: req.body.username, email: req.body.email});
     user.set('passwordHashed', hashPassword(req.body.password));
+    // BUG: redirect should be promised executed
     user.save(function (err) {
         if (err){
             req.session.error = err;
