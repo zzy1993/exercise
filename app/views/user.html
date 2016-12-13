@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+<head>
+    <meta charset="UTF-8">
+    <style rel="stylesheet" href="/lib/css/bootstrap.css"></style>
+</head>
+<body>
+<div class="container" ng-controller="userController">
+
+    <a class="btn btn-primary btn-lg" href="/signup">Signup</a>
+    <button class="btn btn-danger btn-lg" ng-click="logout();">Logout</button>
+
+    <h1>User information</h1>
+    <div class="row">
+        <p>Username: {{user.username}}</p>
+        <p>Email: {{user.email}}</p>
+    </div>
+</div>
+<script src="/lib/js/angular.js"></script>
+<script src="/static/js/myAPP.js"></script>
+<script src="/static/js/userController.js"></script>
+</body>
+</html>
