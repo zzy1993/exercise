@@ -1,25 +1,36 @@
 <!DOCTYPE html>
-<html lang="en">
+<!--BUG: Check ng-app-->
+<html lang="en" ng-app="myApp" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="lib/css/bootstrap.css">
+    <link rel="stylesheet" href="/lib/css/bootstrap.css">
 </head>
 <body>
-<div class="container" ng-controller="userController">
-    <h1>Login</h1>
+<div class="container" ng-controller="userController" ng-init="username='';password='';">
     <div class="row">
-        <p>Username</p>
-        <input type="text" ng-model="username">
-    </div>
-    <div class="row">
-        <p>Password</p>
-        <input type="password" ng-model="password">
-    </div>
-    <div class="row">
-        <input type="button" value="Login" ng-click="">
+        <div class="panel-heading">
+            <div class="panel-title text-center">
+                <h1 class="title">Login</h1>
+                <hr>
+            </div>
+        </div>
+        <form class="form-horizontal text-center">
+            <div class="form-group">
+                <label>Username</label>
+                <input type="text" ng-model="username">
+            </div>
+            <div class="form-group">
+                <label>Password</label>
+                <input type="password" ng-model="password">
+            </div>
+            <button class="btn btn-primary btn-lg" ng-click="login(username, password);">Submit</button>
+            <div>
+                <a href="/signup">No account? Signup now</a>
+            </div>
+        </form>
     </div>
 </div>
-<script src="lib/js/angular.js"></script>
-<script src="static/js/userApp.js"></script>
+<script src="/lib/js/angular.min.js"></script>
+<script src="/static/js/userController.js"></script>
 </body>
 </html>
