@@ -18,34 +18,41 @@ module.exports = function (app) {
     var comment = require('./app/controllers/commentController.js');
     var user = require('./app/controllers/userController.js');
 
+    
     // define route to pages
     app.get('/', function (req, res) {
-        console.log(req.session);
         if (req.session.userId){
-            res.render('image.html');
+            res.redirect('/image');
         }else{
-            res.redirect('/login');
+            res.render('signup.html');
         }
     });
     app.get('/user', function (req, res) {
         if (req.session.userId) {
             res.render('user.html');
         }else{
-            res.redirect('/login');
+            res.redirect('/');
         }
     });
     app.get('/signup', function (req, res) {
         if (req.session.userId) {
-            res.redirect('/');
+            res.redirect('/image');
         }else{
-            res.render('signup.html');
+            res.render('signup');
         }
     });
     app.get('/login', function (req, res) {
         if (req.session.userId) {
-            res.redirect('/');
+            res.redirect('/image');
         }else{
             res.render('login.html');
+        }
+    });
+    app.get('/image', function (req, res){
+        if (req.session.userId) {
+            res.render('image.html');
+        }else{
+            res.redirect('/');
         }
     });
 
