@@ -21,24 +21,23 @@ exports.postSession = function (req, res) {
     User.findOne({username: req.body.username})
         .exec(function (err, user) {
             if(!user){
-                res.json(404, {msg: 'User Not Found.'});
-                res.redirect('/');
+                res.json(404, {msg: 'User not found.'});
             }else if (user.passwordHashed == hashPassword(req.body.password)){
                 // Bug:
                 req.session.regenerate(function () {
                     req.session.userId = user._id;
                     req.session.username = user.username;
-                    res.redirect('/');
+                    res.json({msg: 'Successful login.'});
                 });
             }else{
-                res.redirect('/login');
+                res.json({msg: 'Fail to login.'});
             }
         });
 };
 
 exports.deleteSession = function(req, res) {
     req.session.destroy(function () {
-        res.redirect('/login');
+        res.json({msg: 'Successful logout.'});
     });
 };
 
@@ -46,28 +45,39 @@ exports.getUser = function (req, res) {
     User.findOne({_id: req.params.userId})
         .exec(function (err, user) {
             if(!user){
-                res.json(404, {msg: 'User Not Found.'});
+                res.json(404, {msg: 'User not found.'});
             }else if (req.session.userId == req.params.userId){
                 res.json(user);
             }else{
-                res.redirect('/');
+                res.json({msg: 'Fail to get user information.'});
             }
         });
 };
 
 exports.postUser = function (req, res) {
-    console.log(req.body.password, hashPassword(req.body.password));
-    var user = new User({username: req.body.username, email: req.body.email});
-    user.set('passwordHashed', hashPassword(req.body.password));
-    // BUG: redirect should be promised executed
-    user.save(function (err) {
-        if (err){
-            req.session.error = err;
-        }else{
-            req.session.msg = user.username + ' is created successfully.';
-        }
-        res.redirect('/');
-    });
+    User.findOne({username: req.body.username})
+        .exec(function (err, user){
+            if(!user){
+                var userNew = new User({username: req.body.username, email: req.body.email});
+                userNew.set('passwordHashed', hashPassword(req.body.password));
+                // BUG: redirect should be promised executed
+                userNew.save(function (err) {
+                    if (err){
+                        console.log('error');
+                        res.json(404, {msg: 'Fail to create account.'});
+                    }else{
+                        console.log('correct');
+                        req.session.regenerate(function () {
+                            req.session.userId = userNew._id;
+                            req.session.username = userNew.username;
+                            res.json({msg: userNew.username + ' is created successfully.'});
+                        });
+                    }
+                });
+            }else{
+                res.json({msg: 'Fail to get user information.'});
+            }
+        });
 };
 
 // BUG: .toString()
