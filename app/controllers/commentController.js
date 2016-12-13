@@ -33,7 +33,7 @@ exports.postComment = function(req, res) {
                 res.json(404, {msg: 'Comment Not Found.'});
             }else{
                 var commentNew = new Reply(req.body.commentNew);
-                commentNew.username = generateUsername();
+                commentNew.username = req.session.username;
                 addComment(req, res, comment, comment, req.body.commentIdParent, commentNew);
             }
         })
