@@ -12,7 +12,8 @@ var mongoStore = require('connect-mongo')({session: expressSession});
 var bodyParser = require('body-parser');
 
 // BUG: should not use .connect()
-var db = mongoose.connect('mongodb://localhost/exercise');
+// var db = mongoose.connect('mongodb://localhost/exercise');
+var db = mongoose.connect('mongodb://heroku_pgmh8nft:q1tbb7054k1o5718198qsfck7c@ds111798.mlab.com:11798/heroku_pgmh8nft');
 
 // db.on('error', function (err) {
 //     log.error('Connection error:', err.message);
@@ -50,4 +51,5 @@ app.use(expressSession({
 
 // implement routes in express server
 require('./routes.js')(app);
-app.listen(3000);
+var port = process.env.PORT || 3000;
+app.listen(port);
