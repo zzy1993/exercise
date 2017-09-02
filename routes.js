@@ -1,37 +1,28 @@
-/**
- * define module to set routes
- */
-
 var express = require('express');
 var crypto = require('crypto');
 
 module.exports = function (app) {
-
-    // accessible files
-    app.use('/', express.static(__dirname + '/app/views'));
-    app.use('/static', express.static(__dirname + '/app/static'));
-    app.use('/imgs', express.static(__dirname + '/imgs'));
-    app.use('/lib', express.static(__dirname + '/lib'));
-
-    // import controller modules
-    var image = require('./app/controllers/imageController.js');
-    var comment = require('./app/controllers/commentController.js');
-    var user = require('./app/controllers/userController.js');
-
     
     // define route to pages
     app.get('/', function (req, res) {
         if (req.session.userId){
             res.redirect('/image');
         }else{
-            res.render('signup.html');
+            res.redirect('/signup');
         }
     });
     app.get('/user', function (req, res) {
         if (req.session.userId) {
-            res.render('user.html');
+            res.render('user');
         }else{
-            res.redirect('/');
+            res.redirect('/signup');
+        }
+    });
+    app.get('/login', function (req, res) {
+        if (req.session.userId) {
+            res.redirect('/image');
+        }else{
+            res.render('login');
         }
     });
     app.get('/signup', function (req, res) {
@@ -41,20 +32,17 @@ module.exports = function (app) {
             res.render('signup');
         }
     });
-    app.get('/login', function (req, res) {
-        if (req.session.userId) {
-            res.redirect('/image');
-        }else{
-            res.render('login.html');
-        }
-    });
     app.get('/image', function (req, res){
         if (req.session.userId) {
-            res.render('image.html');
+            res.render('image');
         }else{
-            res.redirect('/');
+            res.redirect('/signup');
         }
     });
+
+    var image = require('./app/controllers/imageController');
+    var comment = require('./app/controllers/commentController');
+    var user = require('./app/controllers/userController');
 
     // RESTful api
     app.get('/api/images/:imageId', image.getImage);
@@ -65,6 +53,10 @@ module.exports = function (app) {
     app.post('/api/users', user.postUser);
     app.post('/api/session', user.postSession);
     app.delete('/api/session', user.deleteSession);
+
+    app.use('/public', express.static(__dirname + '/public'));
+    app.use('/img', express.static(__dirname + '/img'));
+    app.use('/lib', express.static(__dirname + '/lib'));
 
     // invalid request
     app.use('*', function (req, res) {

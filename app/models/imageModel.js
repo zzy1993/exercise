@@ -11,7 +11,7 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
-// design schema of imgs table
+// design schema of img table
 var ImageSchema = new Schema({
     timestamp: {type: Date, default: Date.now},
     title: String,
