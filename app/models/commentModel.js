@@ -1,21 +1,3 @@
-/**
- * define comment model
- * ( structure considered:
- *       a comment tree contains replies
- *
- * 1. replySchema
- * - timestamp
- * - username
- * -- type
- * -- default
- * - content
- * - replies []
- *
- * 2. commentThreadSchema
- * - title
- * - replies []
- */
-
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 

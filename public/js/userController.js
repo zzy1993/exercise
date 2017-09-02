@@ -1,7 +1,3 @@
-/**
- * Created by Aleph on 10/12/2016.
- */
-
 var app = angular.module('myApp', []);
 
 app.controller('userController', ['$scope', '$http', '$location', function ($scope, $http, $location) {
@@ -18,12 +14,15 @@ app.controller('userController', ['$scope', '$http', '$location', function ($sco
     };
 
     $scope.signup = function(username, password, email){
-        $http.post('/api/users',
-        {username: username,
+        $http.post('/api/users',{
+            username: username,
             password: password,
-            email: email},
-        {headers: {"Content-Type": "application/json"}})
-            .then(function successCallback(res) {
+            email: email
+        }, {
+            headers: {
+                "Content-Type": "application/json"
+            }
+        }).then(function successCallback(res) {
                 window.location.href = '/image';
             }, function errorCallback(res) {
             });

@@ -1,7 +1,3 @@
-/**
- * 
- */
-
 var app = angular.module('myApp', []);
 
 function CommentObj($http) {

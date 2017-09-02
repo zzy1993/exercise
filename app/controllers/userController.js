@@ -1,18 +1,3 @@
-/**
- * loginUser, POST: username, password
- *      add session: userId, username
- *
- * logoutUser, GET:
- *      delete session
- *      redirect /
- *
- * getUser, GET: username, password
- *      return User
- *
- * addUser, POST: username, password, email
- *      add User: username, passwordHashed, email
- */
-
 var mongoose = require('mongoose');
 var crypto = require('crypto');
 var User = mongoose.model('User');
@@ -23,7 +8,6 @@ exports.postSession = function (req, res) {
             if(!user){
                 res.json(404, {msg: 'User not found.'});
             }else if (user.passwordHashed == hashPassword(req.body.password)){
-                // Bug:
                 req.session.regenerate(function () {
                     req.session.userId = user._id;
                     req.session.username = user.username;
@@ -60,7 +44,7 @@ exports.postUser = function (req, res) {
             if(!user){
                 var userNew = new User({username: req.body.username, email: req.body.email});
                 userNew.set('passwordHashed', hashPassword(req.body.password));
-                // BUG: redirect should be promised executed
+
                 userNew.save(function (err) {
                     if (err){
                         console.log('error');
@@ -80,7 +64,6 @@ exports.postUser = function (req, res) {
         });
 };
 
-// BUG: .toString()
 function hashPassword(password){
     return crypto.createHash('sha256')
         .update(password.toString())

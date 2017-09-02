@@ -1,17 +1,6 @@
-/**
- * define image model:
- * - title
- * - filename
- * - timestamp
- * -- type
- * -- default
- * - commentId  (associate with a comment model
- */
-
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
-// design schema of img table
 var ImageSchema = new Schema({
     timestamp: {type: Date, default: Date.now},
     title: String,
@@ -19,5 +8,4 @@ var ImageSchema = new Schema({
     commentId: Schema.ObjectId
 });
 
-// add mongoose model
 mongoose.model('Image', ImageSchema);

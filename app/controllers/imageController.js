@@ -1,15 +1,6 @@
-/**
- * getImage, GET: imageId
- *      image
- *
- * getImages, GET
- *      images
- */
-
 var mongoose = require('mongoose');
 var Image = mongoose.model('Image');
 
-// /image?imageId
 exports.getImage = function (req, res) {
     Image.findOne({ _id: req.params.imageId})
         .exec(function (err, image) {
@@ -22,7 +13,6 @@ exports.getImage = function (req, res) {
         });
 };
 
-// /images
 exports.getImages = function (req, res) {
     Image.find()
         .exec(function (err, images) {

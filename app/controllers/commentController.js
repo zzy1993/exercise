@@ -1,20 +1,9 @@
-/**
- * getComment, GET: commentId
- *      return comment
- *
- * addComment, POST: commentIdRoot, commentIdParent, comment
- *      return comment
- */
-
 var mongoose = require('mongoose');
 var Comment = mongoose.model('Comment');
 var Reply = mongoose.model('Reply');
 
-// /comment?commentId
 exports.getComment = function(req, res) {
-    // key from GET query
     Comment.findOne({_id: req.params.commentId})
-        // error and response in callback
         .exec(function (err, comment) {
             if (!comment){
                 res.json(404, {msg: 'Comment Not Found.'});
@@ -24,9 +13,7 @@ exports.getComment = function(req, res) {
         })
 };
 
-// comment
 exports.postComment = function(req, res) {
-    // key form POST bodyfec
     Comment.findOne({_id: req.body.commentIdRoot})
         .exec(function(err, comment) {
             if (!comment) {
