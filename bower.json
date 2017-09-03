@@ -1,0 +1,22 @@
+{
+  "name": "galler",
+  "description": "",
+  "main": "server.js",
+  "authors": [
+    "Zhiyuan Zhao"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/zzy1993/galler",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "^1.6.6",
+    "angular-route": "^1.6.6"
+  }
+}

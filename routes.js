@@ -3,9 +3,9 @@ var crypto = require('crypto');
 
 module.exports = function (app) {
 
-    var image = require('./app/controllers/imageController');
-    var comment = require('./app/controllers/commentController');
-    var user = require('./app/controllers/userController');
+    var image = require('./app/controllers/image.server.controller');
+    var comment = require('./app/controllers/comment.server.controller');
+    var user = require('./app/controllers/user.server.controller');
 
     app.get('/api/images/:imageId', image.getImage);
     app.get('/api/images', image.getImages);

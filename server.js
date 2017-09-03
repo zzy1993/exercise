@@ -1,5 +1,8 @@
 var express = require('express');
 var mongoose = require('mongoose');
+// var express = require('./config/express'),
+//   mongoose = require('./config/mongoose'),
+//   Passport = require('./config/passport');
 var expressSession = require('express-session');
 var mongoStore = require('connect-mongo')({session: expressSession});
 var bodyParser = require('body-parser');
@@ -14,9 +17,9 @@ var db = mongoose.connect('mongodb://heroku_pgmh8nft:q1tbb7054k1o5718198qsfck7c@
 //     log.info("Connected to DB");
 // });
 
-require('./app/models/imageModel.js');
-require('./app/models/commentModel.js');
-require('./app/models/userModel.js');
+require('./app/models/image.server.model.js');
+require('./app/models/comment.server.model.js');
+require('./app/models/user.server.model.js');
 
 var app = express();
 

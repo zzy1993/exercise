@@ -1,9 +1,9 @@
 var mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost/exercise');
 
-require('./app/models/imageModel.js');
-require('./app/models/commentModel.js');
-require('./app/models/userModel.js');
+require('./app/models/image.server.model.js');
+require('./app/models/comment.server.model.js');
+require('./app/models/user.server.model.js');
 
 var Image = mongoose.model('Image');
 var Comment = mongoose.model('Comment');
