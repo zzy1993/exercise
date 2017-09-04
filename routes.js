@@ -16,40 +16,46 @@ module.exports = function (app) {
     app.post('/api/session', user.postSession);
     app.delete('/api/session', user.deleteSession);
     
-    app.get('/', function (req, res) {
-        if (req.session.userId){
-            res.redirect('/image');
-        }else{
-            res.redirect('/signup');
-        }
-    });
-    app.get('/user', function (req, res) {
-        if (req.session.userId) {
-            res.render('user');
-        }else{
-            res.redirect('/signup');
-        }
-    });
-    app.get('/login', function (req, res) {
-        if (req.session.userId) {
-            res.redirect('/image');
-        }else{
-            res.render('login');
-        }
-    });
-    app.get('/signup', function (req, res) {
-        if (req.session.userId) {
-            res.redirect('/image');
-        }else{
-            res.render('signup');
-        }
-    });
-    app.get('/image', function (req, res){
-        if (req.session.userId) {
-            res.render('image');
-        }else{
-            res.redirect('/signup');
-        }
+    // app.get('/', function (req, res) {
+    //     if (req.session.userId){
+    //         res.redirect('/image');
+    //     }else{
+    //         res.redirect('/signup');
+    //     }
+    // });
+    // app.get('/profile', function (req, res) {
+    //     if (req.session.userId) {
+    //         res.render('profile');
+    //     }else{
+    //         res.redirect('/signup');
+    //     }
+    // });
+    // app.get('/login', function (req, res) {
+    //     if (req.session.userId) {
+    //         res.redirect('/image');
+    //     }else{
+    //         res.render('login');
+    //     }
+    // });
+    // app.get('/signup', function (req, res) {
+    //     if (req.session.userId) {
+    //         res.redirect('/image');
+    //     }else{
+    //         res.render('signup');
+    //     }
+    // });
+    // app.get('/image', function (req, res){
+    //     if (req.session.userId) {
+    //         res.render('image');
+    //     }else{
+    //         res.redirect('/signup');
+    //     }
+    // });
+
+    app.get('/', function(req, res){
+        res.render('index', {
+            user: JSON.stringify(req.user)
+        });
     });
 
     app.use('/public', express.static(__dirname + '/public'));

@@ -1,0 +1,11 @@
+<div class="container" ng-controller="profileController">
+
+    <a class="btn btn-primary btn-lg" href="/signup">Signup</a>
+    <button class="btn btn-danger btn-lg" ng-click="logout();">Logout</button>
+
+    <h1>User information</h1>
+    <div class="row">
+        <p>Username: {{user.username}}</p>
+        <p>Email: {{user.email}}</p>
+    </div>
+</div>

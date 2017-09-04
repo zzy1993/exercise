@@ -2,10 +2,27 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
+	<link rel="stylesheet" href="/public/css/style.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 	<title>Galler</title>
 </head>
 <body>
+<!--<% if(user){ %>-->
+<!--<a href="/signout">Sign Out</a>-->
+<!--<% } else { %>-->
+<!--<a href="/signin">Sign In</a>-->
+<!--<a href="/signup">Sign Up</a>-->
+<!--<% } %>-->
+
+<div ng-view></div>
+
 <script type="text/javascript" src="/public/lib/angular/angular.js"></script>
 <script type="text/javascript" src="/public/lib/angular-route/angular-route.js"></script>
+
+<script type="text/javascript" src="/public/user/user.client.module.js"></script>
+<script type="text/javascript" src="/public/user/controllers/user.client.controller.js"></script>
+<script type="text/javascript" src="/public/user/config/user.client.routes.js"></script>
+
+<script type="text/javascript" src="/public/app.js"></script>
 </body>
 </html>

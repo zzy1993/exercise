@@ -41,7 +41,7 @@ exports.getUser = function (req, res) {
       }else if (req.session.userId == req.params.userId){
         res.json(user);
       }else{
-        res.json({msg: 'Fail to get user information.'});
+        res.json({msg: 'Fail to get profile information.'});
       }
     });
 };
@@ -75,7 +75,7 @@ exports.postUser = function (req, res) {
         });
       }else{
         res.json({
-          msg: 'Fail to get user information.'
+          msg: 'Fail to get profile information.'
         });
       }
     });
