@@ -1,5 +1,5 @@
 var mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/exercise');
+mongoose.connect('mongodb://localhost/galler');
 
 require('./app/models/image.server.model.js');
 require('./app/models/comment.server.model.js');

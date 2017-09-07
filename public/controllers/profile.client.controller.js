@@ -1,23 +1,23 @@
 var app = angular.module('profile', []);
 
-app.controller('ProfileController', ['$scope', '$http', '$location',
+app.controller('profileController', ['$scope', '$http', '$location',
   function ($scope, $http, $location) {
 
   
   $scope.logout = function(){
     $http.delete('/api/session')
-      .then(function successCallback(res) {
+      .then(function success(res) {
         window.location.href = '/';
-      }, function errorCallback(res) {
+      }, function error(res) {
         console.log('error');
       });
   };
 
   $scope.getUser = function(){
     $http.get('/api/users/' + userId)
-      .then(function successCallback(res) {
-        window.location.href = '/profile';
-      }, function errorCallback(res) {
+      .then(function success(res) {
+        window.location.href = '/config';
+      }, function error(res) {
         console.log('error');
       });
   }

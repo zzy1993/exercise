@@ -1,0 +1,38 @@
+<div ng-controller="userController">
+  <div class="background">
+    <div class="container">
+      <br/>
+      <br/>
+      <br/>
+      <div class="row">
+        <div class="col-xs-10 col-xs-offset-1 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3 col-lg-4 col-lg-offset-4">
+          <div class="panel-heading">
+            <div class="panel-title text-center">
+              <h1 class="display-1">Galler</h1>
+              <hr/>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-header">
+              <ul class="nav nav-tabs nav-justified">
+                <li class="nav-item {{data.isSigninCard? 'active': ''}}">
+                  <a class="nav-link" href="javascript:void(0)" ng-click="showSigninCard()">Signin</a>
+                </li>
+                <li class="nav-item {{data.isSigninCard? '': 'active'}}">
+                  <a class="nav-link" href="javascript:void(0)" ng-click="showSignupCard()">Signup</a>
+                </li>
+              </ul>
+            </div>
+            <br/>
+            <div class="card-block">
+              <div class="container-fluid">
+                <div ng-if="data.isSigninCard" ng-include="'/public/views/user.client.view.signin.html'"></div>
+                <div ng-if="!data.isSigninCard" ng-include="'/public/views/user.client.view.signup.html'"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
