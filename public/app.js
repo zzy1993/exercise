@@ -1,5 +1,5 @@
 var appName = "galler";
-var app = angular.module(appName, ['user']);
+var app = angular.module(appName, ['user', 'image']);
 
 app.config(['$locationProvider', function($locationProvider){
 	$locationProvider.hashPrefix('!');

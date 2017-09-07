@@ -11,16 +11,6 @@
     padding: 2px;
     margin: 2px;
 }
-#photoContainer{
-    background: white;
-    color: black;
-    width: 100%;
-    display: inline-block;
-    position: relative;
-    text-align: left;
-    padding: 2px;
-    margin: 2px;
-}
 #photoComments{
     background: white;
     color: black;
@@ -35,21 +25,14 @@
 .background {
     background-image: url("/public/img/background.png");
     background-size: cover;
-    background-repeat: no-repeat;
+    background-repeat: repeat;
     background-position: center center;
-    height: 45em;
+    height: 100em;
 }
 div.comment{
     border: 2px ridge grey;
     padding: 10px;
     border-radius: 5px;
-}
-img.listPhoto{
-    height: 100px;
-    cursor: pointer;
-}
-img.mainPhoto{
-    width: 100%;
 }
 .commentBody{
     background-color: whitesmoke;

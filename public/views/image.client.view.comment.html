@@ -8,7 +8,5 @@
 </form>
 <input type="button" value="Cancel" ng-show="isAddComment==true" ng-click="isAddComment=false">
 <div ng-repeat="comment in comment.replies" ng-init="isReply=false;replyBody=''">
-    <div class="comment" ng-include="'replies.html'"></div>
+    <div class="comment" ng-include="'/public/views/image.client.view.replies.html'"></div>
 </div>
-<script src="/lib/js/angular.min.js"></script>
-<script src="/public/image/controllers/image.client.controller.js"></script>
