@@ -11,10 +11,10 @@ module.exports = function(){
 	}));
 	app.use(bodyParser.json());
 
-	app.use(session({
-		secret: 'SECRET',
-		cookie: {maxAge: 60 * 60 * 1000}
-	}));
+	// app.use(session({
+	// 	secret: 'SECRET',
+	// 	cookie: {maxAge: 60 * 60 * 1000}
+	// }));
 
 	app.set('views', __dirname + '/app/views');
 	app.set('view engine', 'html');
