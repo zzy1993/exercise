@@ -4,7 +4,7 @@
 <form ng-show="isAddComment==true">
     <label>Comment</label>
     <textarea ng-model="replyBody"></textarea>
-    <input type="button" value="Send" ng-click="isAddComment=false;addReply(comment._id,replyBody);replyBody=''">
+    <input type="button" value="Send" ng-click="isAddComment=false;addReply(image.commentId, comment._id, replyBody);replyBody=''">
 </form>
 <input type="button" value="Cancel" ng-show="isAddComment==true" ng-click="isAddComment=false">
 <div ng-repeat="comment in comment.replies" ng-init="isReply=false;replyBody=''">

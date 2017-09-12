@@ -1,4 +1,5 @@
-angular.module('image')
+angular
+	.module('image')
 	.config(['$routeProvider',
 		function ($routeProvider) {
 			$routeProvider.when('/image', {

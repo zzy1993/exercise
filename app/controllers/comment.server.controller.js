@@ -1,65 +1,58 @@
 var mongoose = require('mongoose');
-var Comment = mongoose.model('Comment');
-var Reply = mongoose.model('Reply');
+var Comment = require('../models/comment.server.model');
+var Reply = require('../models/reply.server.model');
 
-exports.getComment = function(req, res) {
-  Comment.findOne({_id: req.params.commentId})
-    .exec(function (err, comment) {
-      if (!comment){
-        res.json(404, {msg: 'Comment Not Found.'});
-      }else{
-        res.json(comment);
-      }
-    })
+module.exports = {
+	getCommentTree: getCommentTree, //commentId
+	postReply: postReply //username, body, parentId
 };
 
-exports.postComment = function(req, res) {
-  Comment.findOne({_id: req.body.commentIdRoot})
-    .exec(function(err, comment) {
-      if (!comment) {
-        res.json(404, {msg: 'Comment Not Found.'});
-      }else{
-        var commentNew = new Reply(req.body.commentNew);
-        commentNew.username = req.session.username;
-        addComment(req, res, comment, comment, req.body.commentIdParent, commentNew);
-      }
-    })
-};
-
-function addComment(req, res, comment, commentCurrent, commentIdParent, commentNew) {
-  if (comment.id == commentIdParent) {
-    comment.replies.push(commentNew);
-    updateComment(req, res, comment);
-  }else{
-    for (var i = 0; i < commentCurrent.replies.length; i++) {
-      var c = commentCurrent.replies[i];
-      if (c._id == commentIdParent) {
-        c.replies.push(commentNew);
-        var reply = comment.replies.toObject();
-        updateComment(req, res, comment);
-        break;
-      }else{
-        addComment(req, res, comment, c, commentIdParent, commentNew);
-      }
-    }
-  }
+function getCommentTree(req, res){
+  var commentId = req.params.commentId;
+  Comment.selectComment(commentId)
+	  .then(function (comment) {
+		  return buildCommentTree(comment.toObject());
+	  })
+	  .then(function (commentTree) {
+		  console.log('commentTree', commentTree);
+		  res.json(commentTree);
+	  });
 }
 
-function updateComment(req, res, comment) {
-  Comment.update({
-    _id: comment.id
-  }, {
-    $set: {
-      replies: comment.replies
-    }
-  })
-    .exec(function (err, commentSaved) {
-      if (err) {
-        res.json(404, {msg: 'Failed to Update Comment.'});
-      }else{
-        res.json({msg: 'Success.'});
-      }
-    })
+function buildCommentTree(parent) {
+	var promises = [];
+	for(var i = 0; i < parent.replyIds.length; ++i) {
+		promises.push(
+			Reply.selectReply(parent.replyIds[i])
+	    .then(function (reply) {
+		    return buildCommentTree(reply.toObject());
+	    })
+		);
+  }
+	return Promise.all(promises)
+		.then(function(replies){
+			parent.replies = replies;
+			return Promise.resolve(parent);
+		});
+}
+
+function postReply(req, res) {
+	var reply = {
+		// username: req.body.username,
+		username: generateUsername(),
+		body: req.body.replyBody,
+		replyIds: []
+	};
+	Reply.insertReply(reply)
+		.then(function(reply2) {
+			return Promise.all([
+				Comment.updateParentReplyIds(req.body.parentId, reply2._id),
+				Reply.updateParentReplyIds(req.body.parentId, reply2._id)
+			]);
+		})
+		.then(function (array) {
+			res.json(array[0]?array[0]:array[1]);
+		});
 }
 
 function generateUsername(){

@@ -1,61 +1,68 @@
-angular.module('user')
-	.controller('userController', ['$scope', '$http', '$location',
-	function ($scope, $http, $location) {
-		$scope.data = {
-			username: '',
-			password: '',
-			isSigninCard: true,
-			error: ''
-		};
-		$scope.showSigninCard = function () {
-			$scope.data.isSigninCard = true;
-		};
-		$scope.showSignupCard = function () {
-			$scope.data.isSigninCard = false;
-		};
+angular
+	.module('user')
+	.controller('userController', userController);
 
-		$scope.signin = function (username, password) {
-			$http.post('/api/session', {
-				username: username,
-				password: password
-			}, {
-				headers: {
-					"Content-Type": "application/json"
-				}
-			})
-				.then(function success(res) {
-					$location.path('/images');
-				}, function error(res) {
-					$scope.data.error = res.body;
-				});
+function userController ($scope, $location, userService) {
+
+	$scope.data = {
+		username: '',
+		password: '',
+		isSigninCard: true,
+		error: ''
+	};
+	
+	$scope.showSigninCard = showSigninCard;
+	$scope.showSignupCard = showSignupCard;
+	$scope.signin = signin;
+	$scope.signup = signup;
+	$scope.walkaround = walkaround;
+	$scope.logout = logout;
+	
+	function showSigninCard () {
+		$scope.data.isSigninCard = true;
+	}
+	
+	function showSignupCard () {
+		$scope.data.isSigninCard = false;
+	}
+
+	function signin (username, password) {
+		var session = {
+			username: username,
+			password: password
 		};
-		
-		$scope.signup = function(username, password, email){
-			$http.post('/api/users',{
-				username: username,
-				password: password,
-				email: email
-			}, {
-				headers: {
-					"Content-Type": "application/json"
-				}
-			}).then(function success(res) {
-				$location.path('/image');
+		userService.postSession(session)
+			.then(function success(res) {
+				$location.path('/images');
 			}, function error(res) {
-				$scope.data.error = res.body;
+				$scope.data.error = res.data;
 			});
+	}
+	
+	function signup (username, password, email){
+		var user = {
+			username: username,
+			password: password,
+			email: email
 		};
-		
-		$scope.walkaround = function(){
+		userService.postUser(user)
+		.then(function success(res) {
 			$location.path('/image');
-		};
+		}, function error(res) {
+			$scope.data.error = res.body;
+		});
+	}
+	
+	function walkaround (){
+		$location.path('/image');
+	}
 
-		$scope.logout = function(){
-			$http.delete('/api/session')
-				.then(function success(res) {
-					$location.path('/');
-				}, function error(res) {
-					console.log('error');
-				});
-		};
-	}]);
+	function logout() {
+		userService.deleteSession(session)
+			.then(function success(res) {
+				$location.path('/');
+			}, function error(res) {
+				console.log('error');
+			});
+	}
+}

@@ -1,24 +1,17 @@
-var app = angular.module('profile', []);
+angular
+	.module('profile')
+	.controller('profileController', profileController);
 
-app.controller('profileController', ['$scope', '$http', '$location',
-  function ($scope, $http, $location) {
-
+function profileController($scope, userService) {
   
-  $scope.logout = function(){
-    $http.delete('/api/session')
-      .then(function success(res) {
-        window.location.href = '/';
-      }, function error(res) {
-        console.log('error');
-      });
-  };
+	$scope.getUser = getUser;
 
-  $scope.getUser = function(){
-    $http.get('/api/users/' + userId)
+  function getUser(){
+	  userService.getUser(userId)
       .then(function success(res) {
         window.location.href = '/config';
       }, function error(res) {
         console.log('error');
       });
   }
-}]);
+}

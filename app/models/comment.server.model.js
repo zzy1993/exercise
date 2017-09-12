@@ -1,18 +1,27 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
-var ReplySchema = new Schema();
-ReplySchema.add({
-    timestamp: { type: Date, default: Date.now},
-    username: String,
-    body: String,
-    replies: [ReplySchema]
-});
-
 var CommentSchema = new Schema({
-    title: String,
-    replies: [ReplySchema]
+  title: String,
+  replyIds: [Schema.ObjectId]
 });
 
-mongoose.model('Reply', ReplySchema);
-mongoose.model('Comment', CommentSchema);
+var Comment = mongoose.model('Comment', CommentSchema);
+
+Comment.selectComment = selectComment;
+Comment.insertComment = insertComment;
+Comment.updateParentReplyIds = updateParentReplyIds;
+
+module.exports = Comment;
+
+function selectComment (commentId) {
+  return Comment.findById(commentId);
+}
+
+function insertComment (comment) {
+	return new Comment(comment).save();
+}
+
+function updateParentReplyIds (parentId, replyId) {
+	return Comment.update({_id: parentId}, {$push: {replyIds: replyId}});
+}

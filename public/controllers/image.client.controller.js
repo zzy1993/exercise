@@ -1,42 +1,48 @@
-angular.module('image')
-  .controller('imageController', ['$scope', '$http', 'commentService',
-    function($scope, $http, commentService){
+angular
+	.module('image')
+	.controller('imageController', imageController);
 
-      $http.get('/api/images')
-      .then(function success(res) {
-        $scope.images = res.data;
-        $scope.image = res.data[0];
-        $scope.refreshComment();
-      }, function errorCallback(res) {
-        $scope.images = [];
-      });
+function imageController ($scope, imageService, commentService){
 
-    // /image/5830f1e57467e640eb4da00f
-    $scope.setImage = function(imageId){
-      $http.get('/api/images/' + imageId)
-        .then(function successCallback(res) {
-          $scope.image = res.data;
-          $scope.refreshComment();
-        }, function errorCallback(res) {
-          $scope.image = {};
-        });
-    };
+	$scope.images = [];
+	$scope.image = {};
+	$scope.comment = {};
 
-    // BUG: res.data
-    $scope.refreshComment = function () {
-      commentService.getComment($scope.image.commentId, function (err, res) {
-        if(err){
-          $scope.comment = {};
-        }else{
-          $scope.comment = res.data;
-        }
-      });
-    };
+	function init() {
+		imageService.getImages()
+			.then(function(images) {
+				$scope.images = images.data;
+				$scope.image = images.data[0];
+				return commentService.getComment(images.data[0].commentId);
+			})
+			.then(function(comment){
+				$scope.comment = comment.data;
+			});
+	}
+	init();
 
-    $scope.addReply = function(commentIdParent, body){
-      var commentNew = {body: body};
-      commentService.postComment($scope.comment._id, commentIdParent, commentNew, function (err, res){
-        $scope.refreshComment();
-      });
-    };
-}]);
+
+  $scope.selectImage = selectImage;
+  $scope.addReply = addReply;
+
+  function selectImage(imageId){
+    imageService.getImage(imageId)
+	    .then(function(image){
+		    $scope.image = image.data;
+		    return commentService.getComment(image.data.commentId);
+	    })
+	    .then(function(comment){
+		    $scope.comment = comment.data;
+	    })
+  }
+
+  function addReply(commentId, parentId, replyBody){
+    commentService.postReply(parentId, replyBody)
+	    .then(function() {
+		    return commentService.getComment(commentId);
+	    })
+	    .then(function(comment){
+		    $scope.comment = comment.data;
+	    })
+  }
+}

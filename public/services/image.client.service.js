@@ -1,28 +1,22 @@
-angular.module('image')
-	.service('commentService', ['$http',
-		function($http){
-			this.getComment = function(commentId, callback) {
-				$http.get('/api/comments/' + commentId)
-					.then(function success(res) {
-						callback(null, res);
-					}, function error(res) {
-						callback(res, {});
-					});
-			};
+angular
+	.module('image')
+	.service('imageService', imageService);
 
-			this.postComment = function(commentIdRoot, commentIdParent, commentNew, callback){
-				$http.post('/api/comments', {
-						commentIdRoot: commentIdRoot,
-						commentIdParent: commentIdParent,
-						commentNew: commentNew
-					}, {headers: {"Content-Type": "application/json"}}
-				)
-					.then(function success(res) {
-						callback(null, res);
-					}, function error(res) {
-						callback(res, {});
-					});
-			};
-			
-		}
-	]);
+function imageService ($http){
+	
+	return {
+		getImage: getImage,
+		getImages: getImages
+	};
+
+	function getImage(imageId){
+		var url = '/api/images/' + imageId;
+		return $http.get(url);
+	}
+
+	function getImages(){
+		var url = '/api/images';
+		return $http.get(url);
+	}
+
+}
