@@ -2,6 +2,8 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var session = require('express-session');
 var passport = require('passport');
+const MongoStore = require('connect-mongo')(session);
+
 
 module.exports = function(){
 	var app = express();
@@ -11,10 +13,10 @@ module.exports = function(){
 	}));
 	app.use(bodyParser.json());
 
-	// app.use(session({
-	// 	secret: 'SECRET',
-	// 	cookie: {maxAge: 60 * 60 * 1000}
-	// }));
+	app.use(session({
+		secret: 'SECRET',
+		cookie: {maxAge: 60 * 60 * 1000}
+	}));
 
 	app.set('views', __dirname + '/app/views');
 	app.set('view engine', 'html');
