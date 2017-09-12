@@ -13,7 +13,7 @@
     "mongoose": "^4.6.8",
     "passport": "^0.4.0",
     "passport-local": "^1.0.0"
-  }
+  },
   "scripts": {
     "postinstall": "./node_modules/bower/bin/bower install"
   }
