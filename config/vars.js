@@ -1,3 +1,3 @@
 module.exports = {
-	db_url: process.env.MONGO_PATH || 'mongodb://localhost/galler'
+	db_url: process.env.MONGODB_URI || 'mongodb://localhost/galler'
 };
