@@ -6,5 +6,5 @@ var db = mongoose();
 var app = express();
 // var pp = passport();
 
-var port = 3000 || process.env.PORT;
+var port = process.env.PORT || 3000;
 app.listen(port);
