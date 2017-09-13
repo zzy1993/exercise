@@ -25,7 +25,10 @@ function addImage(title, filename) {
 
 Comment.remove()
 	.then(function () {
-		return Image.remove()
+		return Image.remove();
+	})
+	.then(function () {
+		return Comment.remove();
 	})
 	.then(function () {
 		return Reply.remove();

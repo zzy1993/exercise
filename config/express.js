@@ -21,13 +21,11 @@ module.exports = function(){
 	app.set('views', __dirname + '/app/views');
 	app.set('view engine', 'html');
 	app.engine('.html', require('ejs').__express);
-
-	// app.use(passport.initialize());
-	// app.use(passport.session());
 	
 	require('../app/routes/user.server.route')(app);
 	require('../app/routes/image.server.route')(app);
 	require('../app/routes/comment.server.route')(app);
+	require('../app/routes/index.server.route')(app);
 
 	app.use('/public', express.static(__dirname + '/../public'));
 	app.use('/img', express.static(__dirname + '/../img'));
