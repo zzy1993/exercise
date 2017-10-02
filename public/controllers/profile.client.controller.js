@@ -1,5 +1,5 @@
 angular
-	.module('profile')
+	.module('galler')
 	.controller('profileController', profileController);
 
 function profileController($scope, userService) {
@@ -9,9 +9,9 @@ function profileController($scope, userService) {
   function getUser(){
 	  userService.getUser(userId)
       .then(function success(res) {
-        window.location.href = '/config';
+        $location.path('/image');
       }, function error(res) {
-        console.log('error');
+	      res.json(404, {msg: 'Fail to get user'});
       });
   }
 }

@@ -1,5 +1,5 @@
 angular
-	.module('user')
+	.module('galler')
 	.service('userService', userService);
 
 function userService($http) {
@@ -10,23 +10,14 @@ function userService($http) {
 		deleteSession: deleteSession
 	};
 	
-	function postSession (username, password) {
+	function postSession (session) {
 		var url = '/api/session';
-		var body = {
-			username: username,
-			password: password
-		};
-		return $http.post(url, body);
+		return $http.post(url, session);
 	}
 
 	function postUser (user) {
 		var url = '/api/users';
-		var body = {
-			username: username,
-			password: password,
-			email: email
-		};
-		return $http.post(url, body);
+		return $http.post(url, user);
 	}
 	
 	function deleteSession () {

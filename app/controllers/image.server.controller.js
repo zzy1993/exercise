@@ -1,5 +1,4 @@
-var mongoose = require('mongoose');
-var Image = mongoose.model('Image');
+var Image = require('../models/image.server.model');
 
 exports.getImage = function (req, res) {
 	Image.selectImage(req.params.imageId)
@@ -25,8 +24,7 @@ exports.getImages = function (req, res) {
 
 exports.postImage = function (req, res){
   Image.insertImage(req.body)
-    .then(
-	    function (success) {
+    .then(function (success) {
 		    res.json({msg: 'Image well posted.'})
 	    }
     );

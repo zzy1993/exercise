@@ -1,5 +1,5 @@
 angular
-	.module('image')
+	.module('galler')
 	.controller('imageController', imageController);
 
 function imageController ($scope, imageService, commentService){
@@ -20,8 +20,7 @@ function imageController ($scope, imageService, commentService){
 			});
 	}
 	init();
-
-
+	
   $scope.selectImage = selectImage;
   $scope.addReply = addReply;
 

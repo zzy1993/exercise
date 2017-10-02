@@ -1,5 +1,5 @@
-var appName = "galler";
-var app = angular.module(appName, ['user', 'image']);
+var appName = "app";
+var app = angular.module(appName, ['galler']);
 
 app.config(['$locationProvider',
 	function($locationProvider){

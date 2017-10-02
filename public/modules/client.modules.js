@@ -1,0 +1,1 @@
+angular.module('galler', ['ngRoute', 'ngCookies']);

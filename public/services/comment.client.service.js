@@ -1,5 +1,5 @@
 angular
-  .module('image')
+  .module('galler')
   .service('commentService', commentService);
 
 function commentService($http){

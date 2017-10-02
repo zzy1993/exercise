@@ -14,7 +14,7 @@ Image.selectImage = selectImage;
 Image.selectImages = selectImages;
 Image.insertImage = insertImage;
 
-module.export = Image;
+module.exports = Image;
 
 function selectImage(imageId) {
 	return Image.findById(imageId);

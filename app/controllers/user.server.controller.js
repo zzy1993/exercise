@@ -1,6 +1,5 @@
-var mongoose = require('mongoose');
 var crypto = require('crypto');
-var User = mongoose.model('User');
+var User = require('../models/user.server.model');
 
 module.exports = {
 	getUser: getUser, //userId
@@ -17,33 +16,44 @@ function getUser (req, res) {
       }else{
 	      res.json({msg: 'Fail to get config information.'});
       }
-    });
+    })
+	  .catch(function (error) {
+		  res.json(404, {msg: 'Invalid userId.'});
+	  });
 }
 
 function postUser (req, res) {
-  User.selectUser(req.body.username)
+	if(!req.body.username || !req.body.password || !req.body.email){
+		res.json(404, {msg: 'Please enter username, password or email.'});
+		return;
+	}
+  User.selectUserByUsername(req.body.username)
     .then(function (user) {
+	    console.log('user1: ', user);
 	    if (!user) {
 		    user = {
 			    username: req.body.username,
 			    password: hashPassword(req.body.password),
 			    email: req.body.email
 		    };
+		    console.log('user2: ', user);
 		    return User.insertUser(user);
 	    }
 	    else{
-		    res.json({msg: 'Already used.'});
+		    res.json(404, {msg: 'Account already exist.'});
 	    }
     })
     .then(function (user) {
+	    console.log('user3: ', user);
       req.session.regenerate(function () {
         req.session.userId = user._id;
         req.session.username = user.username;
         res.json({msg: user.username + ' is added successfully.'});
       });
     })
-	  .catch(function () {
-        res.json(404, {msg: 'Fail to create account.'});
+	  .catch(function (error) {
+		  console.log('error:', error);
+      res.json(404, {msg: 'Fail to create account.'});
 	  });
 }
 

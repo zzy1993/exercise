@@ -1,21 +1,21 @@
 angular
-	.module('user')
+	.module('galler')
 	.controller('userController', userController);
 
 function userController ($scope, $location, userService) {
 
 	$scope.data = {
 		username: '',
-		password: '',
 		isSigninCard: true,
-		error: ''
+		errorSignin: '',
+		errorSignup: ''
 	};
 	
 	$scope.showSigninCard = showSigninCard;
 	$scope.showSignupCard = showSignupCard;
 	$scope.signin = signin;
 	$scope.signup = signup;
-	$scope.walkaround = walkaround;
+	// $scope.walkaround = walkaround;
 	$scope.logout = logout;
 	
 	function showSigninCard () {
@@ -32,10 +32,12 @@ function userController ($scope, $location, userService) {
 			password: password
 		};
 		userService.postSession(session)
-			.then(function success(res) {
-				$location.path('/images');
-			}, function error(res) {
-				$scope.data.error = res.data;
+			.then(function (res) {
+				$scope.data.username = username;
+				$location.path('/image');
+			})
+			.catch(function (res) {
+				$scope.data.errorSignin = res.data.msg;
 			});
 	}
 	
@@ -46,23 +48,22 @@ function userController ($scope, $location, userService) {
 			email: email
 		};
 		userService.postUser(user)
-		.then(function success(res) {
-			$location.path('/image');
-		}, function error(res) {
-			$scope.data.error = res.body;
-		});
-	}
-	
-	function walkaround (){
-		$location.path('/image');
+			.then(function (res) {
+				$scope.data.username = username;
+				$location.path('/image');
+			})
+			.catch(function (res) {
+				$scope.data.errorSignup = res.data.msg;
+			});
 	}
 
 	function logout() {
-		userService.deleteSession(session)
-			.then(function success(res) {
+		userService.deleteSession()
+			.then(function (res) {
+				$scope.data.username = '';
 				$location.path('/');
-			}, function error(res) {
-				console.log('error');
+			})
+			.catch(function (res) {
 			});
 	}
 }

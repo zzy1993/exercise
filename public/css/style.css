@@ -1,72 +1,69 @@
 #photosContainer{
-    background: gainsboro;
-    color: white;
-    max-width: 100%;
-    float: left;
-    position: relative;
-    white-space:nowrap;
-    overflow-x: scroll;
-    height: 110px;
-    display: inline;
-    padding: 2px;
-    margin: 2px;
+  max-width: 100%;
+	background: gainsboro;
+	color: white;
+  white-space:nowrap;
+  overflow-x: scroll;
+  height: 110px;
+  padding: 2px;
+  margin: 2px;
 }
 #photoComments{
-    background: white;
-    color: black;
-    width: 100%;
-    display: inline-block;
-    overflow-y: scroll;
-    position: relative;
-    text-align: left;
-    padding: 2px;
-    margin: 2px;
+	width: 100%;
+	/*position: relative;*/
+  background: white;
+  color: black;
+  display: inline-block;
+  /*overflow-y: scroll;*/
+  text-align: left;
+  padding: 2px;
+  margin: 2px;
 }
 .background {
-    background-image: url("/public/img/background.png");
-    background-size: cover;
-    background-repeat: repeat;
-    background-position: center center;
-    height: 100em;
+  background-image: url("/public/img/background.png");
+  background-size: cover;
+  background-repeat: repeat;
+  background-position: center center;
+  min-height: 700px;
 }
 div.comment{
-    border: 2px ridge grey;
-    padding: 10px;
-    border-radius: 5px;
+  border: 2px ridge grey;
+  padding: 10px;
+  border-radius: 5px;
 }
 .commentBody{
-    background-color: whitesmoke;
-    border-radius: 5px;
-    padding: 5px;
-    margin: 0;
+  background-color: whitesmoke;
+  border-radius: 5px;
+  padding: 5px;
+  margin: 0;
 }
 .imageTitle{
-    font-size: 28px;
-    font-weight: bold;
-    margin: 0;
+  font-size: 28px;
+  font-weight: bold;
+  margin: 0;
 }
 .commentTitle{
-    font-size: 18px;
-    font-weight: bold;
+  font-size: 18px;
+  font-weight: bold;
 }
 .username{
-    font-style: italic;
+  font-style: italic;
 }
 .timestamp{
-    font-style: italic;
-    font-size: 12px;
-    margin:0;
+  font-style: italic;
+  font-size: 12px;
+  margin:0;
 }
 /*input[type='text'],*/
 textarea{
-    border: 2px ridge darkslategray;
-    border-radius: 5px;
-    padding: 3px;
-    width: 97%;
+  border: 2px ridge darkslategray;
+  border-radius: 5px;
+  padding: 3px;
+  width: 97%;
 }
 input[type='button']{
-    background-color: darkslategray;
-    color: white;
-    border-radius: 5px;
-    padding: 3px;
+  background-color: darkslategray;
+  color: white;
+  border-radius: 5px;
+  padding: 3px;
 }

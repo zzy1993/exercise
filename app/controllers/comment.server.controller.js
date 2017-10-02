@@ -1,4 +1,3 @@
-var mongoose = require('mongoose');
 var Comment = require('../models/comment.server.model');
 var Reply = require('../models/reply.server.model');
 

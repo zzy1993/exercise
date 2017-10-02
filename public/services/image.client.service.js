@@ -1,5 +1,5 @@
 angular
-	.module('image')
+	.module('galler')
 	.service('imageService', imageService);
 
 function imageService ($http){

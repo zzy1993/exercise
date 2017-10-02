@@ -1,11 +1,11 @@
 var mongoose = require('mongoose');
-var vars = require('./config/vars');
+var vars = require('./vars');
 mongoose.connect(vars.db_url);
 
-require('./app/models/image.server.model.js');
-require('./app/models/comment.server.model.js');
-require('./app/models/reply.server.model.js');
-require('./app/models/user.server.model.js');
+require('./models/image.server.model.js');
+require('./models/comment.server.model.js');
+require('./models/reply.server.model.js');
+require('./models/user.server.model.js');
 
 var Image = mongoose.model('Image');
 var Comment = mongoose.model('Comment');
@@ -32,6 +32,9 @@ Comment.remove()
 	})
 	.then(function () {
 		return Reply.remove();
+	})
+	.then(function () {
+		return User.remove();
 	})
 	.then(function () {
     addImage('Brook in NH', 'brook.jpg');
