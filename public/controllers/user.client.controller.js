@@ -34,6 +34,7 @@ function userController ($scope, $location, userService) {
 		userService.postSession(session)
 			.then(function (res) {
 				$scope.data.username = username;
+				console.log('username', username);
 				$location.path('/image');
 			})
 			.catch(function (res) {
@@ -50,6 +51,7 @@ function userController ($scope, $location, userService) {
 		userService.postUser(user)
 			.then(function (res) {
 				$scope.data.username = username;
+				console.log('username', username);
 				$location.path('/image');
 			})
 			.catch(function (res) {
